@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>角色搜索</title>
+    <title>查詢</title>
     <style>
         /* 添加一些基本样式 */
         body {
@@ -19,9 +19,9 @@
 
     <!-- 搜索表单 -->
     <form id="search-form">
-        <label for="query">输入角色关键字：</label>
+        <label for="query">輸入名稱或關鍵字：</label>
         <input type="text" id="query" name="query">
-        <button type="submit">搜索</button>
+        <button type="submit">搜尋</button>
     </form>
 
     <!-- 结果显示区域 -->
@@ -53,14 +53,14 @@
                         // 判断查询关键词是否匹配角色名
                         if (role.includes(query)) {
                             // 将结果添加到结果区域
-                            resultsDiv.innerHTML += '<p>角色：' + role + ', 属性：' + attribute + ', 日期：' + date + ', 位置：' + location + '</p>';
+                            resultsDiv.innerHTML += '<p>名稱：' + role + ', 屬性：' + attribute + ', 日期：' + date + ', 此儲存位置：' + location + '</p>';
                             found = true;
                         }
                     });
 
                     // 如果没有找到匹配的结果，则显示提示信息
                     if (!found) {
-                        resultsDiv.innerHTML = '<p>未找到匹配的结果。</p>';
+                        resultsDiv.innerHTML = '<p>未找到匹配的結果.</p>';
                     }
                 })
                 .catch(error => {
