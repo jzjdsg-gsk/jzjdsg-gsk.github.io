@@ -5,19 +5,6 @@
     "attribute": "暗",
     "date": "2024-05-15",
     "location": "1"
-  },
-  {
-    "id": 2,
-    "role": "光明法师",
-    "attribute": "光明",
-    "date": "2024-05-16",
-    "location": "2"
-  },
-  {
-    "id": 3,
-    "role": "火焰法师",
-    "attribute": "火焰",
-    "date": "2024-05-17",
-    "location": "3"
+  
   }
 ]
