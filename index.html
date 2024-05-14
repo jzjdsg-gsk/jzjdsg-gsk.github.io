@@ -16,6 +16,12 @@
             text-align: center;
             margin-top: 20px;
         }
+        #version {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: gray;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +37,11 @@
     <!-- 结果显示区域 -->
     <div id="results"></div>
 
-   
+    <!-- 提示语 -->
+    <div id="prompt">如果有喜歡的可告知賣家編號以便交易。</div>
+
+    <!-- 版本号 -->
+    <div id="version">版本号：1.0</div>
 
     <script>
         // 当表单提交时触发查询
@@ -57,9 +67,9 @@
                         var date = entry['date'];
                         
                         // 判断查询关键词是否匹配角色名或属性
-                        if (role.includes(query) || attribute.includes(query)) {
+                        if (role.toLowerCase().includes(query) || attribute.toLowerCase().includes(query)) {
                             // 将结果添加到结果区域
-                            resultsDiv.innerHTML += '<p>編號：' + id + '<br>' + attribute + role + ' 日期：' + date + '</p>';
+                            resultsDiv.innerHTML += '<p>編號：' + id + '<br>屬性+角色名稱：' + attribute + role + ' 日期：' + date + '</p>';
                             found = true;
                         }
 
