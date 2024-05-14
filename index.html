@@ -32,28 +32,26 @@
         document.getElementById('search-form').addEventListener('submit', function(event) {
             event.preventDefault(); // 阻止表单默认提交行为
 
-            var query = document.getElementById('query').value; // 获取查询关键词
+            var query = document.getElementById('query').value.toLowerCase(); // 获取查询关键词
 
-            // 查询 Google 表格 API
-            var googleSheetUrl = 'https://spreadsheets.google.com/feeds/list/1sgR9JXTRieL60ULy37ban54KWX5EiVxT7BOMCpz4BPk/1/public/values?alt=json';
-            fetch(googleSheetUrl)
+            // 从 JSON 文件中读取数据
+            fetch('data.json')
                 .then(response => response.json())
                 .then(data => {
                     // 在此处理返回的数据，并显示在结果区域
-                    var entries = data.feed.entry;
                     var resultsDiv = document.getElementById('results');
                     resultsDiv.innerHTML = '<h2>查询结果</h2>';
                     
                     // 遍历数据条目
-                    entries.forEach(entry => {
-                        var no = entry['gsx$no']['$t'];
-                        var role = entry['gsx$角色']['$t'];
-                        var attribute = entry['gsx$屬性']['$t'];
-                        var date = entry['gsx$日期']['$t'];
-                        var location = entry['gsx$存放位置']['$t'];
+                    data.forEach(entry => {
+                        var no = entry['no'];
+                        var role = entry['role'];
+                        var attribute = entry['attribute'];
+                        var date = entry['date'];
+                        var location = entry['location'];
                         
                         // 判断查询关键词是否匹配
-                        if (no.toLowerCase().includes(query.toLowerCase()) || role.toLowerCase().includes(query.toLowerCase())) {
+                        if (no.includes(query) || role.toLowerCase().includes(query)) {
                             // 将结果添加到结果区域
                             resultsDiv.innerHTML += '<p>编号：' + no + ', 角色：' + role + ', 属性：' + attribute + ', 日期：' + date + '</p>';
                         }
