@@ -28,47 +28,53 @@
     <div id="results"></div>
 
     <script>
-        // 檢查是否找到 data.json 文件
+        // 检查是否找到 data.json 文件
         fetch('data.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('未找到 data.json 文件');
+                } else {
+                    return response.json();
                 }
+            })
+            .then(data => {
+                console.log('找到 data.json 文件，并成功加载数据：', data);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
+                alert(error.message);
             });
 
-        // 當表單提交時觸發查詢
+        // 当表单提交时触发查询
         document.getElementById('search-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // 阻止表單默認提交行為
+            event.preventDefault(); // 阻止表单默认提交行为
 
-            var query = document.getElementById('query').value.toLowerCase(); // 獲取查詢關鍵字
+            var query = document.getElementById('query').value.toLowerCase(); // 获取查询关键词
 
-            // 從 JSON 文件中讀取數據
+            // 从 JSON 文件中读取数据
             fetch('data.json')
                 .then(response => response.json())
                 .then(data => {
-                    // 在此處理返回的數據，並顯示在結果區域
+                    // 在此处理返回的数据，并显示在结果区域
                     var resultsDiv = document.getElementById('results');
                     resultsDiv.innerHTML = '<h2>查询结果</h2>';
                     
-                    // 遍歷數據條目
+                    // 遍历数据条目
                     var found = false;
                     data.forEach(entry => {
                         var role = entry['role'].toLowerCase();
                         var attribute = entry['attribute'];
                         var date = entry['date'];
                         
-                        // 判斷查詢關鍵字是否匹配角色名
+                        // 判断查询关键词是否匹配角色名
                         if (role.includes(query)) {
-                            // 將結果添加到結果區域
+                            // 将结果添加到结果区域
                             resultsDiv.innerHTML += '<p>角色：' + role + ', 属性：' + attribute + ', 日期：' + date + '</p>';
                             found = true;
                         }
                     });
 
-                    // 如果沒有找到匹配的結果，則顯示提示信息
+                    // 如果没有找到匹配的结果，则显示提示信息
                     if (!found) {
                         resultsDiv.innerHTML = '<p>未找到匹配的结果。</p>';
                     }
@@ -78,9 +84,9 @@
                 });
         });
 
-        // 點擊搜尋按鈕時顯示提示
+        // 点击搜索按钮时显示提示
         document.querySelector('button[type="submit"]').addEventListener('click', function() {
-            alert('已點擊搜尋！');
+            alert('已点击搜索！');
         });
     </script>
 </body>
