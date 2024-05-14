@@ -5,6 +5,12 @@
     "attribute": "暗",
     "date": "05-15",
     "location": "1"
-  
+  },
+{
+    "id": 2,
+    "role": "神秘人",
+    "attribute": "光",
+    "date": "05-05",
+    "location": "1"
   }
 ]
