@@ -26,10 +26,20 @@
             font-size: 14px;
             color: gray;
         }
+        .radio-group {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>角色查詢</h1>
+
+    <!-- 属性选择 -->
+    <div class="radio-group">
+        <label><input type="radio" name="attribute" value="all" checked> All</label>
+        <label><input type="radio" name="attribute" value="光"> 光</label>
+        <label><input type="radio" name="attribute" value="暗"> 暗</label>
+    </div>
 
     <!-- 搜索表单 -->
     <form id="search-form">
@@ -42,7 +52,7 @@
     <div id="results"></div>
 
     <!-- 提示语 -->
-    <div id="prompt">告知賣家編號方便交易。</div>
+    <div id="prompt">如果有喜歡的可告知賣家編號以便交易。</div>
 
     <!-- 版本号 -->
     <div id="version">版本号：1.0</div>
@@ -53,6 +63,7 @@
             event.preventDefault(); // 阻止表单默认提交行为
 
             var query = document.getElementById('query').value.toLowerCase(); // 获取查询关键词
+            var attribute = document.querySelector('input[name="attribute"]:checked').value; // 获取选择的属性类型
 
             // 从 JSON 文件中读取数据
             fetch('data.json')
@@ -67,22 +78,17 @@
                     data.forEach(entry => {
                         var id = entry['id'];
                         var role = entry['role'];
-                        var attribute = entry['attribute'];
+                        var entryAttribute = entry['attribute'].toLowerCase();
                         var date = entry['date'];
                         
-                        // 将查询关键词拆分为属性和角色名称，并分别进行匹配
-                        var queries = query.split(' ');
-                        var matched = true;
-                        queries.forEach(q => {
-                            if (!role.toLowerCase().includes(q) && !attribute.toLowerCase().includes(q)) {
-                                matched = false;
+                        // 如果选择 All 属性 或 属性匹配
+                        if (attribute === 'all' || entryAttribute === attribute) {
+                            // 如果查询关键词匹配角色名
+                            if (role.toLowerCase().includes(query)) {
+                                // 将结果添加到结果区域
+                                resultsDiv.innerHTML += '<p>編號：' + id + '<br>' + entry['attribute'] + entry['role'] + ' 日期：' + date + '</p>';
+                                found = true;
                             }
-                        });
-
-                        // 如果关键词匹配角色名或属性，则将结果添加到结果区域
-                        if (matched) {
-                            resultsDiv.innerHTML += '<p>編號：' + id + '<br>' + attribute + role + ' 日期：' + date + '</p>';
-                            found = true;
                         }
 
                     });
