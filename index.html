@@ -8,6 +8,7 @@
         /* 添加一些基本样式 */
         body {
             font-family: Arial, sans-serif;
+            position: relative; /* 让版本号相对于 body 定位 */
         }
         #search-form {
             margin-bottom: 20px;
@@ -19,8 +20,9 @@
             color: gray;
         }
         #version {
-            text-align: center;
-            margin-top: 20px;
+            position: absolute; /* 绝对定位 */
+            top: 10px; /* 距离顶部 10px */
+            right: 10px; /* 距离右侧 10px */
             font-size: 14px;
             color: gray;
         }
@@ -38,6 +40,9 @@
 
     <!-- 结果显示区域 -->
     <div id="results"></div>
+
+    <!-- 提示语 -->
+    <div id="prompt">如果有喜歡的可告知賣家編號以便交易。</div>
 
     <!-- 版本号 -->
     <div id="version">版本号：1.0</div>
