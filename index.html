@@ -70,9 +70,17 @@
                         var attribute = entry['attribute'];
                         var date = entry['date'];
                         
-                        // 判断查询关键词是否匹配角色名或属性
-                        if (role.toLowerCase().includes(query) || attribute.toLowerCase().includes(query)) {
-                            // 将结果添加到结果区域
+                        // 将查询关键词拆分为属性和角色名称，并分别进行匹配
+                        var queries = query.split(' ');
+                        var matched = true;
+                        queries.forEach(q => {
+                            if (!role.toLowerCase().includes(q) && !attribute.toLowerCase().includes(q)) {
+                                matched = false;
+                            }
+                        });
+
+                        // 如果关键词匹配角色名或属性，则将结果添加到结果区域
+                        if (matched) {
                             resultsDiv.innerHTML += '<p>編號：' + id + '<br>' + attribute + role + ' 日期：' + date + '</p>';
                             found = true;
                         }
