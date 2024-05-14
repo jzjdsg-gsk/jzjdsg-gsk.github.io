@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>查询表格</title>
+    <title>查询格</title>
     <style>
         /* 添加一些基本样式 */
         body {
@@ -19,8 +19,14 @@
 
     <!-- 搜索表单 -->
     <form id="search-form">
-        <label for="query">输入查询关键词：</label>
+        <label for="query">输入角色名：</label>
         <input type="text" id="query" name="query">
+        <datalist id="role-list">
+            <!-- 在这里添加角色列表 -->
+            <option value="暗神秘">
+            <option value="光明法師">
+            <!-- 可以继续添加其他角色 -->
+        </datalist>
         <button type="submit">搜索</button>
     </form>
 
@@ -44,16 +50,14 @@
                     
                     // 遍历数据条目
                     data.forEach(entry => {
-                        var no = entry['no'];
-                        var role = entry['role'];
+                        var role = entry['role'].toLowerCase();
                         var attribute = entry['attribute'];
                         var date = entry['date'];
-                        var location = entry['location'];
                         
-                        // 判断查询关键词是否匹配
-                        if (no.includes(query) || role.toLowerCase().includes(query)) {
+                        // 判断查询关键词是否匹配角色名
+                        if (role.includes(query)) {
                             // 将结果添加到结果区域
-                            resultsDiv.innerHTML += '<p>编号：' + no + ', 角色：' + role + ', 属性：' + attribute + ', 日期：' + date + '</p>';
+                            resultsDiv.innerHTML += '<p>角色：' + role + ', 属性：' + attribute + ', 日期：' + date + '</p>';
                         }
                     });
                 })
