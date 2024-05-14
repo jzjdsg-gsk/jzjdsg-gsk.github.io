@@ -40,7 +40,7 @@
                 .then(data => {
                     // 在此处理返回的数据，并显示在结果区域
                     var resultsDiv = document.getElementById('results');
-                    resultsDiv.innerHTML = '<h2>查询结果</h2>';
+                    resultsDiv.innerHTML = '<h2>查詢結果</h2>';
                     
                     // 遍历数据条目
                     var found = false;
@@ -53,7 +53,7 @@
                         // 判断查询关键词是否匹配角色名
                         if (role.includes(query)) {
                             // 将结果添加到结果区域
-                            resultsDiv.innerHTML += '<p>名稱：' + role + ', 屬性：' + attribute + ', 日期：' + date + ', 此儲存位置：' + location + '</p>';
+                            resultsDiv.innerHTML += '<p>名稱：' + role + ', 屬性：' + attribute + ', 日期：' + date + ', 儲存：' + location + '</p>';
                             found = true;
                         }
                     });
