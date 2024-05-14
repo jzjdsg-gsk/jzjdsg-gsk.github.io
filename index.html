@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>查詢</title>
+    <title>角色查詢</title>
     <style>
         /* 添加一些基本样式 */
         body {
@@ -11,6 +11,10 @@
         }
         #search-form {
             margin-bottom: 20px;
+        }
+        #results {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -45,7 +49,8 @@
                     // 遍历数据条目
                     var found = false;
                     data.forEach(entry => {
-                        var role = entry['role'].toLowerCase();
+                        var id = entry['id'];
+                        var role = entry['role'];
                         var attribute = entry['attribute'];
                         var date = entry['date'];
                         var location = entry['location'];
@@ -53,14 +58,16 @@
                         // 判断查询关键词是否匹配角色名
                         if (role.includes(query)) {
                             // 将结果添加到结果区域
-                            resultsDiv.innerHTML += '<p>編號：' + id + ',名稱：' + role + ', 屬性：' + attribute + ', 日期：' + date + ', 儲存：' + location + '</p>';
+                            resultsDiv.innerHTML += '<p>編號：' + id + '<br>角色：' + role + ' 日期：' + date + '</p>';
                             found = true;
                         }
                     });
 
                     // 如果没有找到匹配的结果，则显示提示信息
                     if (!found) {
-                        resultsDiv.innerHTML = '<p>未找到匹配的結果.</p>';
+                        resultsDiv.innerHTML += '<p>未找到匹配的結果.</p>';
+                    } else {
+                        resultsDiv.innerHTML += '<p>如果有喜歡的可告知賣家編號以便交易。</p>';
                     }
                 })
                 .catch(error => {
