@@ -32,13 +32,29 @@
             data.forEach(entry => {
                 var entryDiv = document.createElement('div');
                 entryDiv.innerHTML = `
-                    <label>編號：<input type="text" class="id" value="${entry.id}"></label><br>
+                    <label>編號：<input type="text" class="id" value="${entry.id}" readonly></label><br>
                     <label>角色名稱：<input type="text" class="role" value="${entry.role}"></label><br>
-                    <label>屬性：<input type="text" class="attribute" value="${entry.attribute}"></label><br>
+                    <label>屬性：<select class="attribute">
+                        <option value="光" ${entry.attribute === '光' ? 'selected' : ''}>光</option>
+                        <option value="暗" ${entry.attribute === '暗' ? 'selected' : ''}>暗</option>
+                    </select></label><br>
                     <label>日期：<input type="text" class="date" value="${entry.date}"></label><br>
-                    <label>儲存位置：<input type="text" class="location" value="${entry.location}"></label><br><br>
+                    <label>儲存位置：<select class="location">
+                        <option value="1" ${entry.location === '1' ? 'selected' : ''}>1</option>
+                        <option value="2" ${entry.location === '2' ? 'selected' : ''}>2</option>
+                        <option value="3" ${entry.location === '3' ? 'selected' : ''}>3</option>
+                        <option value="4" ${entry.location === '4' ? 'selected' : ''}>4</option>
+                    </select></label><br>
+                    <button class="delete-entry">删除</button><br><br>
                 `;
                 container.appendChild(entryDiv);
+            });
+
+            // 绑定删除按钮的点击事件
+            container.querySelectorAll('.delete-entry').forEach(deleteButton => {
+                deleteButton.addEventListener('click', function() {
+                    this.parentNode.remove();
+                });
             });
         }
 
@@ -46,14 +62,29 @@
         document.getElementById('add-entry').addEventListener('click', function() {
             var container = document.getElementById('data-container');
             var newEntryDiv = document.createElement('div');
+            var randomId = generateRandomId();
             newEntryDiv.innerHTML = `
-                <label>編號：<input type="text" class="id"></label><br>
+                <label>編號：<input type="text" class="id" value="${randomId}" readonly></label><br>
                 <label>角色名稱：<input type="text" class="role"></label><br>
-                <label>屬性：<input type="text" class="attribute"></label><br>
+                <label>屬性：<select class="attribute">
+                    <option value="光">光</option>
+                    <option value="暗">暗</option>
+                </select></label><br>
                 <label>日期：<input type="text" class="date"></label><br>
-                <label>儲存位置：<input type="text" class="location"></label><br><br>
+                <label>儲存位置：<select class="location">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select></label><br>
+                <button class="delete-entry">删除</button><br><br>
             `;
             container.appendChild(newEntryDiv);
+
+            // 绑定新添加条目的删除按钮点击事件
+            newEntryDiv.querySelector('.delete-entry').addEventListener('click', function() {
+                this.parentNode.remove();
+            });
         });
 
         // 保存更改
@@ -79,6 +110,11 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         });
+
+        // 生成随机不重复 ID
+        function generateRandomId() {
+            return Math.random().toString(36).substr(2, 9);
+        }
     </script>
 </body>
 </html>
