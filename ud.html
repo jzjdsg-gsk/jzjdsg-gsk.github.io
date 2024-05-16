@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匯入資料到 data.json</title>
+</head>
+<body>
+    <h1>匯入資料到 data.json</h1>
+
+    <form id="data-form">
+        <label for="id">編號：</label>
+        <input type="text" id="id" name="id"><br>
+
+        <label for="role">角色名稱：</label>
+        <input type="text" id="role" name="role"><br>
+
+        <label for="attribute">屬性：</label>
+        <input type="text" id="attribute" name="attribute"><br>
+
+        <label for="date">日期：</label>
+        <input type="text" id="date" name="date"><br>
+
+        <label for="location">儲存位置：</label>
+        <input type="text" id="location" name="location"><br>
+
+        <button type="submit">提交</button>
+    </form>
+
+    <script>
+        document.getElementById('data-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+
+            var formData = new FormData(this);
+
+            var entry = {};
+            formData.forEach((value, key) => {
+                entry[key] = value;
+            });
+
+            // 从 GitHub Pages 上的 data.json 文件读取现有数据
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    // 将新数据添加到现有数据中
+                    data.push(entry);
+
+                    // 将更新后的数据写回到 data.json 文件中
+                    var jsonData = JSON.stringify(data, null, 2);
+                    var blob = new Blob([jsonData], { type: 'application/json' });
+                    var url = URL.createObjectURL(blob);
+
+                    // 创建一个下载链接，并模拟点击以下载文件
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'data.json';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
+</body>
+</html>
