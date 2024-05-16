@@ -8,6 +8,12 @@
 <body>
     <h1>首抽帳號管理</h1>
 
+    <div>
+        <label for="search-id">搜尋編號：</label>
+        <input type="text" id="search-id">
+        <button onclick="searchById()">搜索</button>
+    </div>
+
     <div id="data-container"></div>
 
     <button id="add-entry">新增數據</button>
@@ -40,10 +46,10 @@
                     </select></label><br>
                     <label>日期：<input type="text" class="date" value="${entry.date}"></label><br>
                     <label>儲存模擬器：<select class="location">
-                        <option value="1" ${entry.location === '1' ? 'selected' : ''}>1</option>
-                        <option value="2" ${entry.location === '2' ? 'selected' : ''}>2</option>
-                        <option value="3" ${entry.location === '3' ? 'selected' : ''}>3</option>
-                        <option value="4" ${entry.location === '4' ? 'selected' : ''}>4</option>
+                        <option value="0" ${entry.location === '0' ? 'selected' : ''}>1</option>
+                        <option value="1" ${entry.location === '1' ? 'selected' : ''}>2</option>
+                        <option value="2" ${entry.location === '2' ? 'selected' : ''}>3</option>
+                        <option value="3" ${entry.location === '3' ? 'selected' : ''}>4</option>
                     </select></label><br>
                     <button class="delete-entry">刪除</button><br><br>
                 `;
@@ -72,10 +78,10 @@
                 </select></label><br>
                 <label>日期：<input type="text" class="date"></label><br>
                 <label>儲存模擬器：<select class="location">
+                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                    <option value="4">4</option>
                 </select></label><br>
                 <button class="delete-entry">刪除</button><br><br>
             `;
@@ -114,6 +120,18 @@
         // 生成随机不重复 ID
         function generateRandomId() {
             return Math.random().toString(36).substr(2, 9);
+        }
+
+        // 搜索編號
+        function searchById() {
+            var searchId = document.getElementById('search-id').value;
+            var entries = Array.from(document.querySelectorAll('#data-container .id'));
+            var found = entries.find(entry => entry.value === searchId);
+            if (found) {
+                alert('找到匹配的編號：' + searchId);
+            } else {
+                alert('未找到匹配的編號：' + searchId);
+            }
         }
     </script>
 </body>
