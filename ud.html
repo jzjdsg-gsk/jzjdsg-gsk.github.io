@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>在线编辑 data.json</title>
+    <title>帳號管理</title>
 </head>
 <body>
-    <h1>在线编辑 data.json</h1>
+    <h1>首抽帳號管理</h1>
 
     <div id="data-container"></div>
 
-    <button id="add-entry">添加新数据</button>
+    <button id="add-entry">新增數據</button>
     <button id="save-data">保存更改</button>
 
     <script>
@@ -33,19 +33,19 @@
                 var entryDiv = document.createElement('div');
                 entryDiv.innerHTML = `
                     <label>編號：<input type="text" class="id" value="${entry.id}" readonly></label><br>
-                    <label>角色名稱：<input type="text" class="role" value="${entry.role}"></label><br>
+                    <label>角色名：<input type="text" class="role" value="${entry.role}"></label><br>
                     <label>屬性：<select class="attribute">
                         <option value="光" ${entry.attribute === '光' ? 'selected' : ''}>光</option>
                         <option value="暗" ${entry.attribute === '暗' ? 'selected' : ''}>暗</option>
                     </select></label><br>
                     <label>日期：<input type="text" class="date" value="${entry.date}"></label><br>
-                    <label>儲存位置：<select class="location">
+                    <label>儲存模擬器：<select class="location">
                         <option value="1" ${entry.location === '1' ? 'selected' : ''}>1</option>
                         <option value="2" ${entry.location === '2' ? 'selected' : ''}>2</option>
                         <option value="3" ${entry.location === '3' ? 'selected' : ''}>3</option>
                         <option value="4" ${entry.location === '4' ? 'selected' : ''}>4</option>
                     </select></label><br>
-                    <button class="delete-entry">删除</button><br><br>
+                    <button class="delete-entry">刪除</button><br><br>
                 `;
                 container.appendChild(entryDiv);
             });
@@ -65,19 +65,19 @@
             var randomId = generateRandomId();
             newEntryDiv.innerHTML = `
                 <label>編號：<input type="text" class="id" value="${randomId}" readonly></label><br>
-                <label>角色名稱：<input type="text" class="role"></label><br>
+                <label>角色名：<input type="text" class="role"></label><br>
                 <label>屬性：<select class="attribute">
                     <option value="光">光</option>
                     <option value="暗">暗</option>
                 </select></label><br>
                 <label>日期：<input type="text" class="date"></label><br>
-                <label>儲存位置：<select class="location">
+                <label>儲存模擬器：<select class="location">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select></label><br>
-                <button class="delete-entry">删除</button><br><br>
+                <button class="delete-entry">刪除</button><br><br>
             `;
             container.appendChild(newEntryDiv);
 
