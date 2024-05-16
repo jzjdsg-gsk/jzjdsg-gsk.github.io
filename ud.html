@@ -51,26 +51,15 @@
                         <option value="2" ${entry.location === '2' ? 'selected' : ''}>2</option>
                         <option value="3" ${entry.location === '3' ? 'selected' : ''}>3</option>
                     </select></label><br>
-                    <button class="delete-entry">刪除</button>
-                    <button class="edit-entry">修改</button><br><br>
+                    <button class="delete-entry">刪除</button><br><br>
                 `;
                 container.appendChild(entryDiv);
+            });
 
-                // 绑定删除按钮的点击事件
-                entryDiv.querySelector('.delete-entry').addEventListener('click', function() {
-                    entryDiv.remove();
-                });
-
-                // 绑定修改按钮的点击事件
-                entryDiv.querySelector('.edit-entry').addEventListener('click', function() {
-                    var id = entry.id;
-                    var role = entryDiv.querySelector('.role').value;
-                    var attribute = entryDiv.querySelector('.attribute').value;
-                    var date = entryDiv.querySelector('.date').value;
-                    var location = entryDiv.querySelector('.location').value;
-
-                    // 在此处可以进行修改操作，例如更新数据或弹出修改框
-                    alert('您点击了修改按钮。編號：' + id);
+            // 绑定删除按钮的点击事件
+            container.querySelectorAll('.delete-entry').forEach(deleteButton => {
+                deleteButton.addEventListener('click', function() {
+                    this.parentNode.remove();
                 });
             });
         }
@@ -94,26 +83,13 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                 </select></label><br>
-                <button class="delete-entry">刪除</button>
-                <button class="edit-entry">修改</button><br><br>
+                <button class="delete-entry">刪除</button><br><br>
             `;
             container.appendChild(newEntryDiv);
 
             // 绑定新添加条目的删除按钮点击事件
             newEntryDiv.querySelector('.delete-entry').addEventListener('click', function() {
-                newEntryDiv.remove();
-            });
-
-            // 绑定新添加条目的修改按钮点击事件
-            newEntryDiv.querySelector('.edit-entry').addEventListener('click', function() {
-                var id = newEntryDiv.querySelector('.id').value;
-                var role = newEntryDiv.querySelector('.role').value;
-                var attribute = newEntryDiv.querySelector('.attribute').value;
-                var date = newEntryDiv.querySelector('.date').value;
-                var location = newEntryDiv.querySelector('.location').value;
-
-                // 在此处可以进行修改操作，例如更新数据或弹出修改框
-                alert('您点击了修改按钮。編號：' + id);
+                this.parentNode.remove();
             });
         });
 
@@ -147,38 +123,22 @@
         }
 
         // 搜索編號
-        function searchById() {
-            var searchId =var searchId = document.getElementById('search-id').value;
-            var entries = Array.from(document.querySelectorAll('#data-container .id'));
-            var found = entries.find(entry => entry.value === searchId);
-            if (found) {
-                var container = document.getElementById('data-container');
-                var entryDiv = found.parentNode.parentNode;
-                var role = entryDiv.querySelector('.role').value;
-                var attribute = entryDiv.querySelector('.attribute').value;
-                var date = entryDiv.querySelector('.date').value;
-                var location = entryDiv.querySelector('.location').value;
-
-                var editButton = document.createElement('button');
-                editButton.textContent = '修改';
-                editButton.onclick = function() {
-                    // 在此处添加修改操作的代码，例如更新数据或弹出修改框
-                    alert('您点击了修改按钮。編號：' + searchId);
-                };
-
-                var deleteButton = document.createElement('button');
-                deleteButton.textContent = '刪除';
-                deleteButton.onclick = function() {
-                    entryDiv.remove();
-                };
-
-                // 添加修改和删除按钮到匹配的条目中
-                entryDiv.appendChild(editButton);
-                entryDiv.appendChild(deleteButton);
-            } else {
-                alert('未找到匹配的編號：' + searchId);
-            }
-        }
+function searchById() {
+    var searchId = document.getElementById('search-id').value;
+    var entries = Array.from(document.querySelectorAll('#data-container .id'));
+    var found = entries.find(entry => entry.value === searchId);
+    if (found) {
+        var container = document.getElementById('data-container');
+        var entryDiv = found.parentNode.parentNode;
+        var role = entryDiv.querySelector('.role').value;
+        var attribute = entryDiv.querySelector('.attribute').value;
+        var date = entryDiv.querySelector('.date').value;
+        var location = entryDiv.querySelector('.location').value;
+        alert('找到匹配的編號：' + searchId + '\n屬性：' + attribute + '\n角色名：' + role + '\n日期:' + date +'\n儲存模擬器：' + location);
+    } else {
+        alert('未找到匹配的編號：' + searchId);
+    }
+}
     </script>
 </body>
 </html>
