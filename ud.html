@@ -128,7 +128,13 @@
             var entries = Array.from(document.querySelectorAll('#data-container .id'));
             var found = entries.find(entry => entry.value === searchId);
             if (found) {
-                alert('找到匹配的編號：' + searchId);
+                var roleInfo = '';
+                var entryDiv = found.parentNode.parentNode;
+                var role = entryDiv.querySelector('.role').value;
+                var attribute = entryDiv.querySelector('.attribute').value;
+                var date = entryDiv.querySelector('.date').value;
+                roleInfo += `編號：${searchId}\n角色名：${role}\n屬性：${attribute}\n日期：${date}`;
+                alert(roleInfo);
             } else {
                 alert('未找到匹配的編號：' + searchId);
             }
