@@ -94,9 +94,9 @@
                 container.appendChild(entryDiv);
 
                 entryDiv.querySelector('.delete-entry').addEventListener('click', function() {
-                    this.parentNode.remove();
                     const idToRemove = entryDiv.querySelector('.id').value;
                     allData = allData.filter(item => item.id !== idToRemove);
+                    renderPage(allData, currentPage);
                     renderPagination(allData);
                 });
             });
@@ -108,7 +108,7 @@
             paginationDiv.innerHTML = '';
 
             for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createconst pageButton = document.createElement('button');
+                const pageButton = document.createElement('button');
                 pageButton.textContent = i;
                 pageButton.onclick = () => {
                     currentPage = i;
