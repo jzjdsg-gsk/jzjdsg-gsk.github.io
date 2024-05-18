@@ -34,17 +34,14 @@
             border: 1px solid #ccc;
             background-color: #f9f9f9;
         }
-        /* 將表格中的每個單元格的邊框設置為1像素實線邊框 */
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
             padding: 8px;
         }
-        /* 設置表格的寬度為100% */
         table {
             width: 100%;
         }
-        /* 調整表格中的文字大小 */
         table td {
             font-size: 12px;
         }
@@ -119,13 +116,18 @@
             const table = document.createElement('table');
             const tbody = document.createElement('tbody');
 
-            pageData.forEach(entry => {
+            for (let i = 0; i < pageData.length; i += 2) {
                 const row = document.createElement('tr');
                 const cell1 = document.createElement('td');
-                cell1.innerHTML = `編號：${entry.id}<br>${entry.attribute} ${entry.role}<br>日期：${entry.date}<br>帳號狀態：${entry.status ? entry.status : '未綁定'}`;
+                const cell2 = document.createElement('td');
+                cell1.innerHTML = `編號：${pageData[i].id}<br>${pageData[i].attribute} ${pageData[i].role}<br>日期：${pageData[i].date}<br>帳號狀態：${pageData[i].status ? pageData[i].status : '未綁定'}`;
+                if (pageData[i + 1]) {
+                    cell2.innerHTML = `編號：${pageData[i + 1].id}<br>${pageData[i + 1].attribute} ${pageData[i + 1].role}<br>日期：${pageData[i + 1].date}<br>帳號狀態：${pageData[i + 1].status ? pageData[i + 1].status : '未綁定'}`;
+                }
                 row.appendChild(cell1);
+                row.appendChild(cell2);
                 tbody.appendChild(row);
-            });
+            }
 
             table.appendChild(tbody);
             resultsDiv.appendChild(table);
@@ -135,6 +137,14 @@
             const totalPages = Math.ceil(data.length / itemsPerPage);
             const paginationDiv = document.createElement('div');
             paginationDiv.id = 'pagination';
+
+            const resultsDiv = document.getElementById('results');
+
+            if (totalPages > 1) {
+                const currentPageSpan = document.createElement('span');
+                currentPageSpan.textContent = ` -當前頁數- ${currentPage} `;
+                paginationDiv.appendChild(currentPageSpan);
+            }
 
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('button');
@@ -147,7 +157,12 @@
                 paginationDiv.appendChild(pageButton);
             }
 
-            const resultsDiv = document.getElementById('results');
+            if (currentPage === totalPages) {
+                const currentPageSpan = document.createElement('span');
+                currentPageSpan.textContent = '已達到最後一頁';
+                paginationDiv.appendChild(currentPageSpan);
+            }
+
             resultsDiv.appendChild(paginationDiv);
         }
     </script>
