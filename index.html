@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首抽光暗查詢</title>
+    <title>角色查詢</title>
     <style>
-        /* 添加一些基本样式 */
         body {
             font-family: Arial, sans-serif;
-            position: relative; /* 让版本号相对于 body 定位 */
         }
         #search-form {
             margin-bottom: 20px;
@@ -20,14 +18,21 @@
             color: gray;
         }
         #version {
-            position: absolute; /* 绝对定位 */
-            top: 0px; /* 距离顶部 10px */
-            right: 10px; /* 距离右侧 10px */
+            position: absolute;
+            top: 10px;
+            right: 10px;
             font-size: 14px;
             color: gray;
         }
         .radio-group {
             margin-bottom: 10px;
+        }
+        .page-button {
+            margin: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
         }
     </style>
 </head>
@@ -58,50 +63,72 @@
     <div id="version">版本：1.0</div>
 
     <script>
-        // 当表单提交时触发查询
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
         document.getElementById('search-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // 阻止表单默认提交行为
+            event.preventDefault();
+            currentPage = 1;
+            searchRoles();
+        });
 
-            var query = document.getElementById('query').value.toLowerCase(); // 获取查询关键词
-            var attribute = document.querySelector('input[name="attribute"]:checked').value; // 获取选择的属性类型
+        function searchRoles() {
+            const query = document.getElementById('query').value.toLowerCase();
+            const attribute = document.querySelector('input[name="attribute"]:checked').value;
 
-            // 从 JSON 文件中读取数据
             fetch('data.json')
                 .then(response => response.json())
                 .then(data => {
-                    // 在此处理返回的数据，并显示在结果区域
-                    var resultsDiv = document.getElementById('results');
-                    resultsDiv.innerHTML = '<h2>查詢結果</h2>';
-                      
-                    // 遍历数据条目
-                    var found = false;
-                    data.forEach(entry => {
-                        var id = entry['id'];
-                        var role = entry['role'];
-                        var entryAttribute = entry['attribute'].toLowerCase();
-                        var date = entry['date'];
-                        
-                        // 如果选择 All 属性 或 属性匹配
-                        if (attribute === 'all' || entryAttribute === attribute) {
-                            // 如果查询关键词匹配角色名
-                            if (role.toLowerCase().includes(query)) {
-                                // 将结果添加到结果区域
-                                resultsDiv.innerHTML += '<p>編號：' + id + '<br>' + entry['attribute'] + entry['role'] + ' 日期：' + date + '</p>';
-                                found = true;
-                            }
-                        }
-
+                    const filteredData = data.filter(entry => {
+                        const entryAttribute = entry['attribute'].toLowerCase();
+                        return (attribute === 'all' || entryAttribute === attribute) &&
+                               entry['role'].toLowerCase().includes(query);
                     });
 
-                    // 如果没有找到匹配的结果，则显示提示信息
-                    if (!found) {
-                        resultsDiv.innerHTML += '<p>未找到匹配的結果.</p>';
-                    }
+                    renderPage(filteredData, currentPage);
+                    renderPagination(filteredData);
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
                 });
-        });
+        }
+
+        function renderPage(data, page) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h2>查詢結果</h2>';
+
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageData = data.slice(start, end);
+
+            pageData.forEach(entry => {
+                resultsDiv.innerHTML += `<p>編號：${entry.id}<br>屬性：${entry.attribute}<br>角色名：${entry.role}<br>日期：${entry.date}<br>帳號狀態：${entry.status}</p>`;
+            });
+
+            if (pageData.length === 0) {
+                resultsDiv.innerHTML += '<p>未找到匹配的結果.</p>';
+            }
+        }
+
+        function renderPagination(data) {
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+            const paginationDiv = document.createElement('div');
+            paginationDiv.id = 'pagination';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.className = 'page-button';
+                pageButton.onclick = () => {
+                    currentPage = i;
+                    renderPage(data, currentPage);
+                };
+                paginationDiv.appendChild(pageButton);
+            }
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.appendChild(paginationDiv);
+        }
     </script>
 </body>
 </html>
