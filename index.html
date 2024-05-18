@@ -148,8 +148,7 @@
                 
                 if (data2) {
                     cell2.innerHTML = `編號：${data2.id}<br>${data2.attribute} ${data2.role}<br>日期：${data2.date}<br>帳號狀態：${data2.status ? data2.status : '未綁定'}`;
-                } else {
-                    cell2.innerHTML = '<span class="missing-data">待新增</span>';
+                } else {cell2.innerHTML = '<span class="missing-data">待新增</span>';
                 }
 
                 row.appendChild(cell1);
@@ -170,7 +169,7 @@
 
             if (totalPages > 1) {
                 const currentPageSpan = document.createElement('span');
-                currentPageSpan.textContent = `${currentPage}`;
+                currentPageSpan.textContent = `第 ${currentPage} 頁`;
                 currentPageSpan.className = 'current-page';
                 paginationDiv.appendChild(currentPageSpan);
                 paginationDiv.appendChild(document.createTextNode(' - '));
