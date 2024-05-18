@@ -7,6 +7,7 @@
     <style>
 body {
     font-family: Arial, sans-serif;
+    position: relative; /* 讓body設置為相對定位 */
 }
 
 #search-form {
@@ -15,7 +16,10 @@ body {
 
 #prompt {
     text-align: center;
-    margin-top: 20px;
+    position: absolute;
+    top: calc(100% + 20px); /* 將提示語設置在頁數按鈕的下方，20px是預估間距 */
+    left: 50%; /* 將提示語置於水平中間 */
+    transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
     font-size: 14px;
     color: gray;
 }
