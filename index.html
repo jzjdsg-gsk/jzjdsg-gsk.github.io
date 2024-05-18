@@ -5,22 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>角色查詢</title>
     <style>
-        body {
+body {
     font-family: Arial, sans-serif;
 }
 
 #search-form {
     margin-bottom: 20px;
-}
-
-#prompt {
-    text-align: center;
-    position: absolute;
-    top: calc(20% + 50px); /* 將提示語設置在頁數按鈕下方，50px是頁數按鈕的預估高度 */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    color: gray;
 }
 
 #version {
@@ -67,7 +57,7 @@ table td {
 .pagination-container {
     text-align: center;
     position: absolute;
-    bottom: 10%; /* 調整按鈕在頂部的位置 */
+    bottom: 10%; /* 將container位置設置在頁數按鈕的上方 */
     left: 50%; /* 將container置於水平中間 */
     transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
     width: 100%;
@@ -75,6 +65,16 @@ table td {
 
 .current-page {
     font-weight: bold;
+}
+
+#prompt {
+    text-align: center;
+    position: absolute;
+    bottom: calc(100% + 20px); /* 設置提示語在頁數切換按鈕的下方，20px是預估間距 */
+    left: 50%; /* 將提示語置於水平中間 */
+    transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
+    font-size: 14px;
+    color: gray;
 }
     </style>
 </head>
