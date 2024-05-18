@@ -38,6 +38,7 @@
             border: 1px solid black;
             border-collapse: collapse;
             padding: 8px;
+            text-align: center;
         }
         table {
             width: 100%;
@@ -47,7 +48,6 @@
         }
         .missing-data {
             color: red;
-            text-align: center;
         }
     </style>
 </head>
@@ -124,10 +124,14 @@
                 const row = document.createElement('tr');
                 const cell1 = document.createElement('td');
                 const cell2 = document.createElement('td');
-                const data1 = pageData[i] || { id: '-', role: '待新增' };
+                const data1 = pageData[i];
                 const data2 = pageData[i + 1];
 
-                cell1.innerHTML = `編號：${data1.id}<br>${data1.attribute} ${data1.role}<br>日期：${data1.date}<br>帳號狀態：${data1.status ? data1.status : '未綁定'}`;
+                if (data1) {
+                    cell1.innerHTML = `編號：${data1.id}<br>${data1.attribute} ${data1.role}<br>日期：${data1.date}<br>帳號狀態：${data1.status ? data1.status : '未綁定'}`;
+                } else {
+                    cell1.innerHTML = '<span class="missing-data">待新增</span>';
+                }
                 
                 if (data2) {
                     cell2.innerHTML = `編號：${data2.id}<br>${data2.attribute} ${data2.role}<br>日期：${data2.date}<br>帳號狀態：${data2.status ? data2.status : '未綁定'}`;
