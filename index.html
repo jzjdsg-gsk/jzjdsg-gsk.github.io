@@ -7,11 +7,17 @@
     <style>
 body {
     font-family: Arial, sans-serif;
-    position: relative; /* 將body設置為相對定位 */
 }
 
 #search-form {
     margin-bottom: 20px;
+}
+
+#prompt {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: gray;
 }
 
 #version {
@@ -58,7 +64,7 @@ table td {
 .pagination-container {
     text-align: center;
     position: absolute;
-    bottom: 10%; /* 將container位置設置在頁數按鈕的上方 */
+    top: 20%; /* 調整按鈕在頂部的位置 */
     left: 50%; /* 將container置於水平中間 */
     transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
     width: 100%;
@@ -66,17 +72,6 @@ table td {
 
 .current-page {
     font-weight: bold;
-}
-
-#prompt {
-    text-align: center;
-    position: absolute;
-    bottom: calc(100% + 20px); /* 設置提示語在頁數切換按鈕的下方，20px是預估間距 */
-    left: 50%; /* 將提示語置於水平中間 */
-    transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
-    font-size: 14px;
-    color: gray;
-    white-space: nowrap; /* 避免文字折行 */
 }
     </style>
 </head>
