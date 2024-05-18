@@ -81,6 +81,12 @@
         let currentPage = 1;
         const itemsPerPage = 10;
 
+        // 頁面加載時預設載入all查詢狀態
+        window.onload = function() {
+            document.querySelector('input[value="all"]').checked = true;
+            searchRoles();
+        };
+
         document.getElementById('search-form').addEventListener('submit', function(event) {
             event.preventDefault();
             currentPage = 1;
