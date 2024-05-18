@@ -102,7 +102,7 @@
             const pageData = data.slice(start, end);
 
             pageData.forEach(entry => {
-                resultsDiv.innerHTML += `<p>編號：${entry.id}<br>屬性：${entry.attribute}<br>角色名：${entry.role}<br>日期：${entry.date}<br>帳號狀態：${entry.status}</p>`;
+                resultsDiv.innerHTML += `<p>編號：${entry.id}<br>${entry.attribute} ${entry.role}<br>日期：${entry.date}<br>帳號狀態：${entry.status}</p>`;
             });
 
             if (pageData.length === 0) {
