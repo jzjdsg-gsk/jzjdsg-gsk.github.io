@@ -27,10 +27,6 @@
         .radio-group {
             margin-bottom: 10px;
         }
-        .page-buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
         .page-button {
             margin: 5px;
             padding: 5px 10px;
@@ -38,45 +34,43 @@
             border: 1px solid #ccc;
             background-color: #f9f9f9;
         }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
         table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
+        table td {
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
     <h1>角色查詢</h1>
 
-    <!-- 属性选择 -->
+    <!-- 屬性選擇 -->
     <div class="radio-group">
-        <label><input type="radio" name="attribute" value="all" checked> All</label>
+        <label><input type="radio" name="attribute" value="all" checked> 全部</label>
         <label><input type="radio" name="attribute" value="光"> 光</label>
         <label><input type="radio" name="attribute" value="暗"> 暗</label>
     </div>
 
-    <!-- 搜索表单 -->
+    <!-- 搜尋表單 -->
     <form id="search-form">
         <label for="query">輸入關鍵字：</label>
         <input type="text" id="query" name="query">
         <button type="submit">查詢</button>
     </form>
 
-    <!-- 结果显示区域 -->
+    <!-- 結果顯示區域 -->
     <div id="results"></div>
 
-    <!-- 提示语 -->
+    <!-- 提示語 -->
     <div id="prompt">如果有喜歡的可告知賣家編號以便交易。</div>
 
-    <!-- 版本号 -->
+    <!-- 版本號 -->
     <div id="version">版本：1.0</div>
 
     <script>
@@ -118,40 +112,39 @@
             const end = start + itemsPerPage;
             const pageData = data.slice(start, end);
 
-            if (pageData.length === 0) {
-                resultsDiv.innerHTML += '<p>未找到匹配的結果.</p>';
-            } else {
-                const table = document.createElement('table');
-                const tbody = document.createElement('tbody');
-                table.appendChild(tbody);
+            // 創建表格
+            const table = document.createElement('table');
+            const tbody = document.createElement('tbody');
 
-                for (let i = 0; i < pageData.length; i += 2) {
-                    const row = document.createElement('tr');
-
-                    for (let j = 0; j < 2; j++) {
-                        const dataIndex = i + j;
-                        const rowData = pageData[dataIndex] || { id: '-', role: '待新增' };
-
-                        const idCell = document.createElement('td');
-                        idCell.textContent = rowData.id;
-                        row.appendChild(idCell);
-
-                        const roleCell = document.createElement('td');
-                        roleCell.textContent = rowData.role;
-                        row.appendChild(roleCell);
-                    }
-
-                    tbody.appendChild(row);
+            for (let i = 0; i < pageData.length; i += 2) {
+                const row = document.createElement('tr');
+                const cell1 = document.createElement('td');
+                const cell2 = document.createElement('td');
+                cell1.innerHTML = `編號：${pageData[i].id}<br>${pageData[i].attribute} ${pageData[i].role}<br>日期：${pageData[i].date}<br>帳號狀態：${pageData[i].status ? pageData[i].status : '未綁定'}`;
+                if (pageData[i + 1]) {
+                    cell2.innerHTML = `編號：${pageData[i + 1].id}<br>${pageData[i + 1].attribute} ${pageData[i + 1].role}<br>日期：${pageData[i + 1].date}<br>帳號狀態：${pageData[i + 1].status ? pageData[i + 1].status : '未綁定'}`;
                 }
-
-                resultsDiv.appendChild(table);
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                tbody.appendChild(row);
             }
+
+            table.appendChild(tbody);
+            resultsDiv.appendChild(table);
         }
 
         function renderPagination(data) {
             const totalPages = Math.ceil(data.length / itemsPerPage);
             const paginationDiv = document.createElement('div');
-            paginationDiv.className = 'page-buttons';
+            paginationDiv.id = 'pagination';
+
+            const resultsDiv = document.getElementById('results');
+
+            if (totalPages > 1) {
+                const currentPageSpan = document.createElement('span');
+                currentPageSpan.textContent = ` -當前頁數- ${currentPage} `;
+                paginationDiv.appendChild(currentPageSpan);
+            }
 
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('button');
@@ -164,7 +157,12 @@
                 paginationDiv.appendChild(pageButton);
             }
 
-            const resultsDiv = document.getElementById('results');
+            if (currentPage === totalPages) {
+                const currentPageSpan = document.createElement('span');
+                currentPageSpan.textContent = '已達到最後一頁';
+                paginationDiv.appendChild(currentPageSpan);
+            }
+
             resultsDiv.appendChild(paginationDiv);
         }
     </script>
