@@ -185,14 +185,7 @@
                 };
                 paginationDiv.appendChild(pageButton);
             }
-
-            if (currentPage === totalPages) {
-                const currentPageSpan = document.createElement('span');
-                currentPageSpan.textContent = '已達到最後一頁';
-                paginationDiv.appendChild(currentPageSpan);
-            }
-
-            resultsDiv.appendChild(paginationDiv);
+           resultsDiv.appendChild(paginationDiv);
         }
     </script>
 </body>
