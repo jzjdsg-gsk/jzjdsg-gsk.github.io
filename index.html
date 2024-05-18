@@ -102,7 +102,8 @@
             const pageData = data.slice(start, end);
 
             pageData.forEach(entry => {
-                resultsDiv.innerHTML += `<p>編號：${entry.id}<br>${entry.attribute} ${entry.role}<br>日期：${entry.date}<br>帳號狀態：${entry.status}</p>`;
+                const status = entry.status ? entry.status : '未綁定';
+                resultsDiv.innerHTML += `<p>編號：${entry.id}<br>${entry.attribute} ${entry.role}<br>日期：${entry.date}<br>帳號狀態：${status}</p>`;
             });
 
             if (pageData.length === 0) {
