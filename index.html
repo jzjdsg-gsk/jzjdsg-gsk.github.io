@@ -27,12 +27,29 @@
         .radio-group {
             margin-bottom: 10px;
         }
+        .page-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
         .page-button {
             margin: 5px;
             padding: 5px 10px;
             cursor: pointer;
             border: 1px solid #ccc;
             background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
@@ -95,43 +112,46 @@
 
         function renderPage(data, page) {
             const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '<h2>查詢結果</h2>';
+            resultsDiv.innerHTML = '';
 
             const start = (page - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const pageData = data.slice(start, end);
 
-            const table = document.createElement('table');
-            const tbody = document.createElement('tbody');
-            table.appendChild(tbody);
+            if (pageData.length === 0) {
+                resultsDiv.innerHTML += '<p>未找到匹配的結果.</p>';
+            } else {
+                const table = document.createElement('table');
+                const tbody = document.createElement('tbody');
+                table.appendChild(tbody);
 
-            for (let i = 0; i < Math.ceil(pageData.length / 2); i++) {
-                const row = document.createElement('tr');
-                for (let j = 0; j < 2; j++) {
-                    const index = i * 2 + j;
-                    const entry = pageData[index];
-                    const cell = document.createElement('td');
-                    if (entry) {
-                        cell.innerHTML = `<p>編號：${entry.id}<br>${entry.attribute} ${entry.role}<br>日期：${entry.date}<br>帳號狀態：${entry.status}</p>`;
-                    } else {
-                        cell.textContent = '待新增';
+                for (let i = 0; i < pageData.length; i += 2) {
+                    const row = document.createElement('tr');
+
+                    for (let j = 0; j < 2; j++) {
+                        const dataIndex = i + j;
+                        const rowData = pageData[dataIndex] || { id: '-', role: '待新增' };
+
+                        const idCell = document.createElement('td');
+                        idCell.textContent = rowData.id;
+                        row.appendChild(idCell);
+
+                        const roleCell = document.createElement('td');
+                        roleCell.textContent = rowData.role;
+                        row.appendChild(roleCell);
                     }
-                    row.appendChild(cell);
-                }
-                tbody.appendChild(row);
-            }
 
-            resultsDiv.appendChild(table);
+                    tbody.appendChild(row);
+                }
+
+                resultsDiv.appendChild(table);
+            }
         }
 
         function renderPagination(data) {
             const totalPages = Math.ceil(data.length / itemsPerPage);
             const paginationDiv = document.createElement('div');
-            paginationDiv.id = 'pagination';
-
-            const currentPageSpan = document.createElement('span');
-            currentPageSpan.textContent = `當前頁數：${currentPage}`;
-            paginationDiv.appendChild(currentPageSpan);
+            paginationDiv.className = 'page-buttons';
 
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('button');
@@ -142,12 +162,6 @@
                     searchRoles();
                 };
                 paginationDiv.appendChild(pageButton);
-            }
-
-            if (currentPage === totalPages) {
-                const lastPageSpan = document.createElement('span');
-                lastPageSpan.textContent = '已達到最後一頁了';
-                paginationDiv.appendChild(lastPageSpan);
             }
 
             const resultsDiv = document.getElementById('results');
