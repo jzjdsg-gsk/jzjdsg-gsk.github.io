@@ -55,23 +55,23 @@ table td {
 }
 
 .pagination-container {
-    text-align: center;
-    position: relative; /* 将定位改为相对定位 */
-    bottom: 10%; /* 调整按钮在顶部的位置 */
-    left: 50%; /* 将 container 置于水平中间 */
-    transform: translateX(-50%); /* 调整位置，使其置于水平中间 */
-    width: 100%;
-}
+            text-align: center;
+            position: absolute;
+            bottom: 15%; /* 調整按鈕在頂部的位置 */
+            left: 50%; /* 將container置於水平中間 */
+            transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
+            width: 100%;
+        }
 
-.current-page {
-    font-weight: bold;
-}
+        .current-page {
+            font-weight: bold;
+        }
 
-.warning-message {
+        .warning-message {
     font-size: 13px;
     color: red;
     position: absolute;
-    bottom: 20%; /* 警告标语与页面切换按钮之间的距离 */
+    bottom: 1%; /* 警告標語與頁數按鈕之間的距離 */
     left: 50%; /* 水平置中 */
     transform: translateX(-50%); /* 水平置中 */
     width: 70%; /* 文字框的宽度 */
