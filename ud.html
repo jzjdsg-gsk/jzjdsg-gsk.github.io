@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>帳號管理</title>
+    <style>
+        .hidden { display: none; }
+        .pagination { display: flex; justify-content: center; margin-top: 20px; }
+        .pagination button { margin: 0 5px; padding: 5px 10px; }
+    </style>
 </head>
 <body>
     <h1>首抽帳號管理</h1>
@@ -15,36 +20,48 @@
     </div>
 
     <div id="data-container"></div>
+    <div id="pagination-container" class="pagination"></div>
 
     <button id="add-entry">新增數據</button>
     <button id="save-data">保存更改</button>
 
     <script>
-        // 从 GitHub Pages 上的 data.json 文件读取现有数据并显示在页面上
+        const ITEMS_PER_PAGE = 5; // 每頁顯示的條目數量
+        let currentPage = 1;
+        let allData = [];
+
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
-                renderData(data);
+                allData = data;
+                renderPage(1);
+                renderPagination();
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
 
-        // 渲染数据到页面上
+        function renderPage(page) {
+            currentPage = page;
+            const start = (page - 1) * ITEMS_PER_PAGE;
+            const end = page * ITEMS_PER_PAGE;
+            const pageData = allData.slice(start, end);
+            renderData(pageData);
+        }
+
         function renderData(data) {
-            var container = document.getElementById('data-container');
+            const container = document.getElementById('data-container');
             container.innerHTML = '';
 
             data.forEach(entry => {
-                var entryDiv = document.createElement('div');
+                const entryDiv = document.createElement('div');
                 entryDiv.innerHTML = `
                     <label>編號：<input type="text" class="id" value="${entry.id}" readonly></label><br>
-<label>屬性：<select class="attribute">
+                    <label>屬性：<select class="attribute">
                         <option value="光" ${entry.attribute === '光' ? 'selected' : ''}>光</option>
                         <option value="暗" ${entry.attribute === '暗' ? 'selected' : ''}>暗</option>
                     </select></label><br>
                     <label>角色名：<input type="text" class="role" value="${entry.role}"></label><br>
-                    
                     <label>日期：<input type="text" class="date" value="${entry.date}"></label><br>
                     <label>儲存模擬器：<select class="location">
                         <option value="0" ${entry.location === '0' ? 'selected' : ''}>0</option>
@@ -65,19 +82,34 @@
             });
         }
 
-        // 添加新数据
+        function renderPagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            const totalPages = Math.ceil(allData.length / ITEMS_PER_PAGE);
+
+            paginationContainer.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.innerText = i;
+                button.classList.toggle('active', i === currentPage);
+                button.addEventListener('click', () => {
+                    renderPage(i);
+                });
+                paginationContainer.appendChild(button);
+            }
+        }
+
         document.getElementById('add-entry').addEventListener('click', function() {
-            var container = document.getElementById('data-container');
-            var newEntryDiv = document.createElement('div');
-            var randomId = generateRandomId();
+            const container = document.getElementById('data-container');
+            const newEntryDiv = document.createElement('div');
+            const randomId = generateRandomId();
             newEntryDiv.innerHTML = `
                 <label>編號：<input type="text" class="id" value="${randomId}" readonly></label><br>
-<label>屬性：<select class="attribute">
+                <label>屬性：<select class="attribute">
                     <option value="光">光</option>
                     <option value="暗">暗</option>
                 </select></label><br>
                 <label>角色名：<input type="text" class="role"></label><br>
-                
                 <label>日期：<input type="text" class="date"></label><br>
                 <label>儲存模擬器：<select class="location">
                     <option value="0">0</option>
@@ -89,28 +121,35 @@
             `;
             container.appendChild(newEntryDiv);
 
-            // 绑定新添加条目的删除按钮点击事件
             newEntryDiv.querySelector('.delete-entry').addEventListener('click', function() {
                 this.parentNode.remove();
             });
+
+            allData.push({
+                id: randomId,
+                role: '',
+                attribute: '光',
+                date: '',
+                location: '0'
+            });
+
+            renderPagination();
         });
 
-        // 保存更改
         document.getElementById('save-data').addEventListener('click', function() {
-            var entries = Array.from(document.querySelectorAll('#data-container div'));
-            var data = entries.map(entryDiv => ({
-                id: entryDiv.querySelector('.id').value,
-                role: entryDiv.querySelector('.role').value,
-                attribute: entryDiv.querySelector('.attribute').value,
-                date: entryDiv.querySelector('.date').value,
-                location: entryDiv.querySelector('.location').value
+            const data = allData.map(entry => ({
+                id: entry.id,
+                role: entry.role,
+                attribute: entry.attribute,
+                date: entry.date,
+                location: entry.location
             }));
 
-            var jsonData = JSON.stringify(data, null, 2);
-            var blob = new Blob([jsonData], { type: 'application/json' });
-            var url = URL.createObjectURL(blob);
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
 
-            var a = document.createElement('a');
+            const a = document.createElement('a');
             a.href = url;
             a.download = 'data.json';
             document.body.appendChild(a);
@@ -119,30 +158,19 @@
             URL.revokeObjectURL(url);
         });
 
-        // 生成随机不重复 ID
         function generateRandomId() {
             return Math.random().toString(36).substr(2, 9);
         }
 
         function searchById() {
-    var searchId = document.getElementById('search-id').value;
-    var entries = Array.from(document.querySelectorAll('#data-container .id'));
-    var found = entries.find(entry => entry.value === searchId);
-    if (found) {
-        var container = document.getElementById('data-container');
-        var entryDiv = found.parentNode.parentNode;
-        var role = entryDiv.querySelector('.role').value;
-        var attribute = entryDiv.querySelector('.attribute').value;
-        var date = entryDiv.querySelector('.date').value;
-        var location = entryDiv.querySelector('.location').value;
-        //alert('找到匹配的編號：' + searchId + '\n屬性：' + attribute + '\n角色名：' + role + '\n日期:' + date +'\n儲存模擬器：' + location);
-        
-        // 将匹配的条目移到第一个位置
-        container.insertBefore(entryDiv, container.firstChild);
-    } else {
-        alert('未找到匹配的編號：' + searchId);
-    }
-}
+            const searchId = document.getElementById('search-id').value;
+            const found = allData.find(entry => entry.id === searchId);
+            if (found) {
+                renderData([found]);
+            } else {
+                alert('未找到匹配的編號：' + searchId);
+            }
+        }
     </script>
 </body>
 </html>
