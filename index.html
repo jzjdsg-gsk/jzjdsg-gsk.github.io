@@ -81,9 +81,8 @@
         let currentPage = 1;
         const itemsPerPage = 10;
 
-        // 頁面加載時預設載入all查詢狀態
+        // 页面加载时执行搜索
         window.onload = function() {
-            document.querySelector('input[value="all"]').checked = true;
             searchRoles();
         };
 
@@ -122,29 +121,35 @@
             const end = start + itemsPerPage;
             const pageData = data.slice(start, end);
 
-            // 創建表格
+            // 计算需要补充的空行数
+            const missingRows = itemsPerPage - pageData.length;
+
+            // 创建表格
             const table = document.createElement('table');
             const tbody = document.createElement('tbody');
 
-            for (let i = 0; i < itemsPerPage; i += 2) {
+            for (let i = 0; i < pageData.length; i += 2) {
                 const row = document.createElement('tr');
                 const cell1 = document.createElement('td');
                 const cell2 = document.createElement('td');
                 const data1 = pageData[i];
                 const data2 = pageData[i + 1];
 
-                if (data1) {
-                    cell1.innerHTML = `編號：${data1.id}<br>${data1.attribute} ${data1.role}<br>日期：${data1.date}<br>帳號狀態：${data1.status ? data1.status : '未綁定'}`;
-                } else {
-                    cell1.innerHTML = '<span class="missing-data">待新增</span>';
-                }
-                
-                if (data2) {
-                    cell2.innerHTML = `編號：${data2.id}<br>${data2.attribute} ${data2.role}<br>日期：${data2.date}<br>帳號狀態：${data2.status ? data2.status : '未綁定'}`;
-                } else {
-                    cell2.innerHTML = '<span class="missing-data">待新增</span>';
-                }
+                cell1.innerHTML = data1 ? `編號：${data1.id}<br>${data1.attribute} ${data1.role}<br>日期：${data1.date}<br>帳號狀態：${data1.status ? data1.status : '未綁定'}` : '<span class="missing-data">待新增</span>';
+                cell2.innerHTML = data2 ? `編號：${data2.id}<br>${data2.attribute} ${data2.role}<br>日期：${data2.date}<br>帳號狀態：${data2.status ? data2.status : '未綁定'}` : '<span class="missing-data">待新增</span>';
 
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                tbody.appendChild(row);
+            }
+
+            // 补充空行
+            for (let i = 0; i < missingRows; i++) {
+                const row = document.createElement('tr');
+                const cell1 = document.createElement('td');
+                const cell2 = document.createElement('td');
+                cell1.innerHTML = '<span class="missing-data">待新增</span>';
+                cell2.innerHTML = '<span class="missing-data">待新增</span>';
                 row.appendChild(cell1);
                 row.appendChild(cell2);
                 tbody.appendChild(row);
