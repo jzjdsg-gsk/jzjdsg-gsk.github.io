@@ -39,11 +39,12 @@
                 var entryDiv = document.createElement('div');
                 entryDiv.innerHTML = `
                     <label>編號：<input type="text" class="id" value="${entry.id}" readonly></label><br>
-                    <label>角色名：<input type="text" class="role" value="${entry.role}"></label><br>
-                    <label>屬性：<select class="attribute">
+<label>屬性：<select class="attribute">
                         <option value="光" ${entry.attribute === '光' ? 'selected' : ''}>光</option>
                         <option value="暗" ${entry.attribute === '暗' ? 'selected' : ''}>暗</option>
                     </select></label><br>
+                    <label>角色名：<input type="text" class="role" value="${entry.role}"></label><br>
+                    
                     <label>日期：<input type="text" class="date" value="${entry.date}"></label><br>
                     <label>儲存模擬器：<select class="location">
                         <option value="0" ${entry.location === '0' ? 'selected' : ''}>0</option>
