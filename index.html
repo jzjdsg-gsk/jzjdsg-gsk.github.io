@@ -6,62 +6,73 @@
     <title>角色查詢</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            position: relative; /* 確保pagination-container的絕對定位是相對於body而不是其他元素 */
-        }
-        #search-form {
-            margin-bottom: 20px;
-        }
-        #prompt {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: gray;
-        }
-        #version {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 14px;
-            color: gray;
-        }
-        .radio-group {
-            margin-bottom: 10px;
-        }
-        .page-button {
-            margin: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 8px;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-        }
-        table td {
-            font-size: 12px;
-        }
-        .missing-data {
-            color: red;
-        }
-        .pagination-container {
-            text-align: center;
-            margin-top: 20px;
-            position: absolute;
-            bottom: 10px;
-            left: 50%; /* 將container置於水平中間 */
-            transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
-            width: 100%;
-        }
-        .current-page {
-            font-weight: bold;
-        }
+    font-family: Arial, sans-serif;
+}
+
+#search-form {
+    margin-bottom: 20px;
+}
+
+#prompt {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: gray;
+}
+
+#version {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: gray;
+}
+
+.radio-group {
+    margin-bottom: 10px;
+}
+
+.page-button {
+    margin: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+table td {
+    font-size: 12px;
+}
+
+.missing-data {
+    color: red;
+}
+
+.pagination-container {
+    text-align: center;
+    position: absolute;
+    top: 20%; /* 調整按鈕在頂部的位置 */
+    left: 50%; /* 將container置於水平中間 */
+    transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
+    width: 100%;
+}
+
+.current-page {
+    font-weight: bold;
+}
     </style>
 </head>
 <body>
