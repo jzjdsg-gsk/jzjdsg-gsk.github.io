@@ -172,7 +172,7 @@
                 currentPageSpan.textContent = `第 ${currentPage} 頁`;
                 currentPageSpan.className = 'current-page';
                 paginationDiv.appendChild(currentPageSpan);
-                paginationDiv.appendChild(document.createTextNode(' \n '));
+                paginationDiv.appendChild(document.createTextNode(' - '));
             }
 
             for (let i = 1; i <= totalPages; i++) {
