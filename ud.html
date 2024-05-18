@@ -111,11 +111,33 @@
                 const pageButton = document.createElement('button');
                 pageButton.textContent = i;
                 pageButton.onclick = () => {
+                    saveCurrentPageData();
                     currentPage = i;
                     renderPage(data, currentPage);
                 };
                 paginationDiv.appendChild(pageButton);
             }
+        }
+
+        function saveCurrentPageData() {
+            const entries = Array.from(document.querySelectorAll('#data-container .entry'));
+            entries.forEach(entryDiv => {
+                const id = entryDiv.querySelector('.id').value;
+                const attribute = entryDiv.querySelector('.attribute').value;
+                const role = entryDiv.querySelector('.role').value;
+                const date = entryDiv.querySelector('.date').value;
+                const status = entryDiv.querySelector('.status').value;
+                const location = entryDiv.querySelector('.location').value;
+
+                const entry = allData.find(item => item.id === id);
+                if (entry) {
+                    entry.attribute = attribute;
+                    entry.role = role;
+                    entry.date = date;
+                    entry.status = status;
+                    entry.location = location;
+                }
+            });
         }
 
         document.getElementById('add-entry').addEventListener('click', function() {
@@ -133,7 +155,7 @@
                 <label>日期：<input type="text" class="date"></label><br>
                 <label>帳號狀態：<select class="status">
                     <option value="已綁定">已綁定</option>
-                    <option value="未綁定">未綁定</option>
+                    <option value="未綁定" selected>未綁定</option>
                 </select></label><br>
                 <label>儲存模擬器：<select class="location">
                     <option value="0">0</option>
@@ -151,17 +173,8 @@
         });
 
         document.getElementById('save-data').addEventListener('click', function() {
-            const entries = Array.from(document.querySelectorAll('#data-container .entry'));
-            const data = entries.map(entryDiv => ({
-                id: entryDiv.querySelector('.id').value,
-                attribute: entryDiv.querySelector('.attribute').value,
-                role: entryDiv.querySelector('.role').value,
-                date: entryDiv.querySelector('.date').value,
-                status: entryDiv.querySelector('.status').value,
-                location: entryDiv.querySelector('.location').value,
-            }));
-
-            const jsonData = JSON.stringify(data, null, 2);
+            saveCurrentPageData();
+            const jsonData = JSON.stringify(allData, null, 2);
             const blob = new Blob([jsonData], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
 
