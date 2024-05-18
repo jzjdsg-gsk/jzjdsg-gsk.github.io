@@ -49,6 +49,13 @@
         .missing-data {
             color: red;
         }
+        .pagination-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .current-page {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -157,14 +164,16 @@
         function renderPagination(data) {
             const totalPages = Math.ceil(data.length / itemsPerPage);
             const paginationDiv = document.createElement('div');
-            paginationDiv.id = 'pagination';
+            paginationDiv.className = 'pagination-container';
 
             const resultsDiv = document.getElementById('results');
 
             if (totalPages > 1) {
                 const currentPageSpan = document.createElement('span');
-                currentPageSpan.textContent = ` -當前頁數- ${currentPage} `;
+                currentPageSpan.textContent = `${currentPage}`;
+                currentPageSpan.className = 'current-page';
                 paginationDiv.appendChild(currentPageSpan);
+                paginationDiv.appendChild(document.createTextNode(' - '));
             }
 
             for (let i = 1; i <= totalPages; i++) {
