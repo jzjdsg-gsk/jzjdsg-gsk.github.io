@@ -80,8 +80,10 @@ table td {
 .search-hint {
             position: absolute;
     top: 65px;
-    right: 0px;
-    font-size: 14px;
+    left: 50%; /* 水平置中 */
+    transform: translateX(-50%); /* 水平置中 */
+    width: 70%; /* 文字框的宽度 */
+    white-space: nowrap; /* 文字不换行 */
     color: gray;
 
         }
