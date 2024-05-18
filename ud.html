@@ -128,17 +128,15 @@
     var found = entries.find(entry => entry.value === searchId);
     if (found) {
         var container = document.getElementById('data-container');
-        container.innerHTML = ''; // 清空数据容器
-        
         var entryDiv = found.parentNode.parentNode;
         var role = entryDiv.querySelector('.role').value;
         var attribute = entryDiv.querySelector('.attribute').value;
         var date = entryDiv.querySelector('.date').value;
         var location = entryDiv.querySelector('.location').value;
-        //alert('找到匹配的編號：' + searchId + '\n屬性：' + attribute + '\n角色名：' + role + '\n日期:' + date +'\n儲存模擬器：' + location);
+        alert('找到匹配的編號：' + searchId + '\n屬性：' + attribute + '\n角色名：' + role + '\n日期:' + date +'\n儲存模擬器：' + location);
         
-        // 将匹配的条目放置在数据容器中
-        container.appendChild(entryDiv);
+        // 将匹配的条目移到第一个位置
+        container.insertBefore(entryDiv, container.firstChild);
     } else {
         alert('未找到匹配的編號：' + searchId);
     }
