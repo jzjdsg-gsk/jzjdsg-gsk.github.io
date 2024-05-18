@@ -15,7 +15,10 @@
 
 #prompt {
     text-align: center;
-    bottom: 5%; /* 調整位置 */
+    position: absolute;
+    top: calc(20% + 50px); /* 將提示語設置在頁數按鈕下方，50px是頁數按鈕的預估高度 */
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 14px;
     color: gray;
 }
