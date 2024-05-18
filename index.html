@@ -73,6 +73,15 @@ table td {
 .current-page {
     font-weight: bold;
 }
+.warning-message {
+            text-align: center;
+            font-size: 16px;
+            color: red;
+            position: absolute;
+            bottom: 50px; /* 警告標語與頁數按鈕之間的距離 */
+            left: 50%; /* 水平置中 */
+            transform: translateX(-50%); /* 水平置中 */
+        }
     </style>
 </head>
 <body>
@@ -97,6 +106,9 @@ table td {
 
     <!-- 提示語 -->
     <div id="prompt">如果有喜歡的可告知賣家編號以便交易。</div>
+
+  <!-- 警告標語 -->
+    <div class="warning-message">請注意：這是一條警告訊息。</div>
 
     <!-- 版本號 -->
     <div id="version">版本：1.0</div>
