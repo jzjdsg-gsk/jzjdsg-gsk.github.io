@@ -200,12 +200,12 @@
 
         function searchById() {
             const searchId = document.getElementById('search-id').value;
-            const entries = Array.from(document.querySelectorAll('#data-container .id'));
-            const found = entries.find(entry => entry.value === searchId);
-            if (found) {
-                const container = document.getElementById('data-container');
-                const entryDiv = found.parentNode.parentNode;
-                container.insertBefore(entryDiv, container.firstChild);
+            const foundEntry = allData.find(entry => entry.id === searchId);
+            if (foundEntry) {
+                const pageIndex = Math.floor(allData.indexOf(foundEntry) / itemsPerPage) + 1;
+                currentPage = pageIndex;
+                renderPage(allData, currentPage);
+                renderPagination(allData);
             } else {
                 alert('未找到匹配的編號：' + searchId);
             }
