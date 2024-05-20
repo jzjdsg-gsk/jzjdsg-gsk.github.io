@@ -49,13 +49,11 @@
         const itemsPerPage = 5;
         let allData = [];
 
-        // 初始化時從localStorage加載數據
         window.onload = function() {
             const storedData = localStorage.getItem('allData');
             if (storedData) {
                 allData = JSON.parse(storedData);
             } else {
-                // 如果localStorage中沒有數據，從data.json加載
                 fetch('data.json')
                     .then(response => response.json())
                     .then(data => {
@@ -174,6 +172,7 @@
         document.getElementById('save-data').addEventListener('click', function() {
             saveCurrentPageData();
             saveDataToLocalStorage();
+            alert('數據已保存');
         });
 
         function saveDataToLocalStorage() {
