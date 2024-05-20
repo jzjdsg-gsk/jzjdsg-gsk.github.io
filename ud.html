@@ -155,6 +155,7 @@
         }
 
         document.getElementById('add-entry').addEventListener('click', function() {
+            saveCurrentPageData(); // 保存當前頁面數據
             const randomId = generateRandomId();
             const newEntry = {
                 id: randomId,
