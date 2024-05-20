@@ -172,11 +172,26 @@
         document.getElementById('save-data').addEventListener('click', function() {
             saveCurrentPageData();
             saveDataToLocalStorage();
+            downloadDataAsFile('data.json');
             alert('數據已保存');
         });
 
         function saveDataToLocalStorage() {
             localStorage.setItem('allData', JSON.stringify(allData));
+        }
+
+        function downloadDataAsFile(filename) {
+            const jsonData = JSON.stringify(allData, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         function generateRandomId() {
