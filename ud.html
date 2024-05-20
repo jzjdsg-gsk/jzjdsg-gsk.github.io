@@ -141,35 +141,18 @@
         }
 
         document.getElementById('add-entry').addEventListener('click', function() {
-            const container = document.getElementById('data-container');
-            const newEntryDiv = document.createElement('div');
-            newEntryDiv.className = 'entry';
             const randomId = generateRandomId();
-            newEntryDiv.innerHTML = `
-                <label>編號：<input type="text" class="id" value="${randomId}" readonly></label><br>
-                <label>屬性：<select class="attribute">
-                    <option value="光">光</option>
-                    <option value="暗">暗</option>
-                </select></label><br>
-                <label>角色名：<input type="text" class="role"></label><br>
-                <label>日期：<input type="text" class="date"></label><br>
-                <label>帳號狀態：<select class="status">
-                    <option value="已綁定">已綁定</option>
-                    <option value="未綁定" selected>未綁定</option>
-                </select></label><br>
-                <label>儲存模擬器：<select class="location">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select></label><br>
-                <button class="delete-entry">刪除</button><br><br>
-            `;
-            container.appendChild(newEntryDiv);
-
-            newEntryDiv.querySelector('.delete-entry').addEventListener('click', function() {
-                this.parentNode.remove();
-            });
+            const newEntry = {
+                id: randomId,
+                attribute: '光',
+                role: '',
+                date: '',
+                status: '未綁定',
+                location: '0'
+            };
+            allData.push(newEntry);
+            renderPage(allData, currentPage);
+            renderPagination(allData);
         });
 
         document.getElementById('save-data').addEventListener('click', function() {
