@@ -1,221 +1,62 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>角色查詢</title>
-    <style>
-body {
-    font-family: Arial, sans-serif;
-}
-
-#search-form {
-    margin-bottom: 20px;
-}
-
-#version {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 14px;
-    color: gray;
-}
-
-.radio-group {
-    margin-bottom: 10px;
-}
-
-.page-button {
-    margin: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-}
-
-table,
-th,
-td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 8px;
-    text-align: center;
-}
-
-table {
-    width: 100%;
-}
-
-table td {
-    font-size: 12px;
-}
-
-.missing-data {
-    color: red;
-}
-
-.pagination-container {
-            text-align: center;
-            position: absolute;
-            bottom: 10%; /* 調整按鈕在頂部的位置 */
-            left: 50%; /* 將container置於水平中間 */
-            transform: translateX(-50%); /* 調整位置，使其置於水平中間 */
-            width: 100%;
-        }
-
-        .current-page {
-            font-weight: bold;
-        }
-
-        .warning-message {
-    font-size: 13px;
-    color: red;
-    position: absolute;
-    bottom: 1%; /* 警告標語與頁數按鈕之間的距離 */
-    left: 50%; /* 水平置中 */
-    transform: translateX(-50%); /* 水平置中 */
-    width: 70%; /* 文字框的宽度 */
-    white-space: nowrap; /* 文字不换行 */
-}
-.search-hint {
-            position: absolute;
-    top: 65px;
-    left: 40%; /* 水平置中 */
-    transform: translateX(-50%); /* 水平置中 */
-    width: 70%; /* 文字框的宽度 */
-    white-space: nowrap; /* 文字不换行 */
-    color: gray;
-
-        }
-    </style>
+    <title>Pi Network Guide</title>
+    <!-- 引入 Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">  <!-- 你的自訂CSS -->
 </head>
 <body>
-    <h1>角色查詢</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Pi Network</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">註冊與下載</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="faq.html">常見問題</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pi_coin.html">Pi 幣介紹</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">聯絡我</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <!-- 屬性選擇 -->
-    <div class="radio-group">
-        <label><input type="radio" name="attribute" value="all" checked> 全部</label>
-        <label><input type="radio" name="attribute" value="光"> 光</label>
-        <label><input type="radio" name="attribute" value="暗"> 暗</label>
+    <div class="container mt-5">
+        <h1 class="text-center">歡迎來到 Pi Network 指南</h1>
+        <p class="text-center">這裡提供 Pi Network App 註冊、下載及常見問題解答。</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>註冊與下載</h3>
+                <p>學習如何下載 Pi Network App 並註冊帳號。</p>
+            </div>
+            <div class="col-md-4">
+                <h3>常見問題</h3>
+                <p>在註冊過程中遇到問題？我們提供詳細解答。</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Pi 幣介紹</h3>
+                <p>了解 Pi 幣的用途及投資建議。</p>
+            </div>
+        </div>
     </div>
 
-    <!-- 搜尋表單 -->
-    <form id="search-form">
-        <label for="query">輸入關鍵字：</label>
-        <input type="text" id="query" name="query">
-        <button type="submit">查詢</button>
-        <div class="search-hint">例:查找暗神秘人,屬性選擇"暗",關鍵字輸入"神"後查詢.</div>
-    </form>
-
-    <!-- 結果顯示區域 -->
-    <div id="results"></div>
-
-  <!-- 警告標語 -->
-    <div class="warning-message">⚠️注意<br>1.角色查詢非即時更新可將編號給賣家查詢最新狀態<br>2.帳號狀態未綁定為訪客帳號需提供Hive綁定<br>3.帳號狀態已綁定則使用空Gmail註冊Hive(可整組移交)</div>
-
-    <!-- 版本號 -->
-    <div id="version">版本：1.0</div>
-
-    <script>
-        let currentPage = 1;
-        const itemsPerPage = 10;
-
-        // 頁面加載時預設載入all查詢狀態
-        window.onload = function() {
-            document.querySelector('input[value="all"]').checked = true;
-            searchRoles();
-        };
-
-        document.getElementById('search-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            currentPage = 1;
-            searchRoles();
-        });
-
-        function searchRoles() {
-            const query = document.getElementById('query').value.toLowerCase();
-            const attribute = document.querySelector('input[name="attribute"]:checked').value;
-
-            fetch('data.json')
-                .then(response => response.json())
-                .then(data => {
-                    const filteredData = data.filter(entry => {
-                        const entryAttribute = entry['attribute'].toLowerCase();
-                        return (attribute === 'all' || entryAttribute === attribute) &&
-                               entry['role'].toLowerCase().includes(query);
-                    });
-
-                    renderPage(filteredData, currentPage);
-                    renderPagination(filteredData);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        }
-
- function renderPage(data, page) {
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '';
-
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageData = data.slice(start, end);
-
-    // 創建表格
-    const table = document.createElement('table');
-    const tbody = document.createElement('tbody');
-
-    for (let i = 0; i < pageData.length; i += 2) {
-        const row = document.createElement('tr');
-        const cell1 = document.createElement('td');
-        const cell2 = document.createElement('td');
-        const data1 = pageData[i];
-        const data2 = pageData[i + 1];
-
-        if (data1) {
-            cell1.innerHTML = `編號：${data1.id}<br>${data1.attribute} ${data1.role}<br>日期：${data1.date}<br>帳號狀態：${data1.status ? data1.status : '未綁定'}`;
-            row.appendChild(cell1);
-        }
-        
-        if (data2) {
-            cell2.innerHTML = `編號：${data2.id}<br>${data2.attribute} ${data2.role}<br>日期：${data2.date}<br>帳號狀態：${data2.status ? data2.status : '未綁定'}`;
-            row.appendChild(cell2);
-        }
-
-        tbody.appendChild(row);
-    }
-
-    table.appendChild(tbody);
-    resultsDiv.appendChild(table);
-}
-
-        function renderPagination(data) {
-            const totalPages = Math.ceil(data.length / itemsPerPage);
-            const paginationDiv = document.createElement('div');
-            paginationDiv.className = 'pagination-container';
-
-            const resultsDiv = document.getElementById('results');
-
-            if (totalPages > 1) {
-                const currentPageSpan = document.createElement('span');
-                currentPageSpan.textContent = `第 ${currentPage} 頁`;
-                currentPageSpan.className = 'current-page';
-                paginationDiv.appendChild(currentPageSpan);
-                paginationDiv.appendChild(document.createTextNode(' - '));
-            }
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createElement('button');
-                pageButton.textContent = i;
-                pageButton.className = 'page-button';
-                pageButton.onclick = () => {
-                    currentPage = i;
-                    searchRoles();
-                };
-                paginationDiv.appendChild(pageButton);
-            }
-           resultsDiv.appendChild(paginationDiv);
-        }
-    </script>
+    <!-- 引入 Bootstrap 和 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
