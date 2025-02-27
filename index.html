@@ -35,16 +35,63 @@
         </div>
     </nav>
 
-    <!-- 內容區域 -->
+    <!-- 顯示 Pi 幣價格 -->
     <div class="container mt-5">
         <h1 class="text-center">歡迎來到 Pi Network 指南</h1>
         <p class="text-center">Pi Network 是一個新興的加密貨幣平台，這裡你將了解如何註冊、下載應用程式，以及如何有效使用 Pi Network。</p>
         
-        <!-- 顯示 Pi 幣當前價格 (這裡需要加入 API 或手動更新) -->
         <div class="alert alert-info text-center">
             <h3>當前 Pi 幣價格: <span id="pi-price">--</span></h3>
         </div>
     </div>
+
+    <!-- 手機版輪播 -->
+    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="5000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/step1.jpg" class="d-block w-100" alt="Step 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>步驟 1</h5>
+                    <p>介紹如何下載 Pi App。</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/step2.jpg" class="d-block w-100" alt="Step 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>步驟 2</h5>
+                    <p>如何註冊 Pi Network 帳戶。</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/step3.jpg" class="d-block w-100" alt="Step 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>步驟 3</h5>
+                    <p>如何開始挖掘 Pi 幣。</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <script>
+        // 顯示 Pi 幣即時價格
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd')
+            .then(response => response.json())
+            .then(data => {
+                const piPrice = data['pi-network'].usd;
+                document.getElementById('pi-price').textContent = `$${piPrice}`;
+            })
+            .catch(error => {
+                console.error('Error fetching Pi price:', error);
+            });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
