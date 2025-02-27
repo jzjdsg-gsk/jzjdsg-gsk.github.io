@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pi Network Guide</title>
-    <!-- 引入 Bootstrap -->
+    <title>Pi Network 指南</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">  <!-- 你的自訂CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- 菜單 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Pi Network</a>
+        <a class="navbar-brand" href="#">Pi Network 指南</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,13 +20,13 @@
                     <a class="nav-link" href="index.html">首頁</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="register.html">註冊與下載</a>
+                    <a class="nav-link" href="download.html">下載 Pi App</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="faq.html">常見問題</a>
+                    <a class="nav-link" href="register.html">註冊問題</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pi_coin.html">Pi 幣介紹</a>
+                    <a class="nav-link" href="tasks.html">註冊必做項目</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contact.html">聯絡我</a>
@@ -35,26 +35,17 @@
         </div>
     </nav>
 
+    <!-- 內容區域 -->
     <div class="container mt-5">
         <h1 class="text-center">歡迎來到 Pi Network 指南</h1>
-        <p class="text-center">這裡提供 Pi Network App 註冊、下載及常見問題解答。</p>
-        <div class="row">
-            <div class="col-md-4">
-                <h3>註冊與下載</h3>
-                <p>學習如何下載 Pi Network App 並註冊帳號。</p>
-            </div>
-            <div class="col-md-4">
-                <h3>常見問題</h3>
-                <p>在註冊過程中遇到問題？我們提供詳細解答。</p>
-            </div>
-            <div class="col-md-4">
-                <h3>Pi 幣介紹</h3>
-                <p>了解 Pi 幣的用途及投資建議。</p>
-            </div>
+        <p class="text-center">Pi Network 是一個新興的加密貨幣平台，這裡你將了解如何註冊、下載應用程式，以及如何有效使用 Pi Network。</p>
+        
+        <!-- 顯示 Pi 幣當前價格 (這裡需要加入 API 或手動更新) -->
+        <div class="alert alert-info text-center">
+            <h3>當前 Pi 幣價格: <span id="pi-price">--</span></h3>
         </div>
     </div>
 
-    <!-- 引入 Bootstrap 和 jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
