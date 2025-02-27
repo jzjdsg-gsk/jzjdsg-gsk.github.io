@@ -3,54 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>註冊必做項目</title>
+    <title>常見問題 - Pi Network</title>
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=1.1">
+
+    <style>
+        .faq-section {
+            margin-top: 40px;
+        }
+
+        .faq-question {
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            margin-left: 20px;
+        }
+
+        .faq-toggle {
+            cursor: pointer;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
+
     <!-- 菜單 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Pi Network 指南</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="/">Pi Network 指南</a> <!-- 使用絕對路徑回到首頁 -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">首頁</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="download.html">下載 Pi App</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="register.html">註冊問題</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="tasks.html">註冊必做項目</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">聯絡我</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                <li class="nav-item"><a class="nav-link" href="download.html">下載 Pi App</a></li>
+                <li class="nav-item"><a class="nav-link" href="register.html">註冊問題</a></li>
+                <li class="nav-item active"><a class="nav-link" href="faq.html">常見問題</a></li>
+                <li class="nav-item"><a class="nav-link" href="tasks.html">註冊必做項目</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">聯絡我</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- 必做項目輪播 -->
-    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="5000">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="images/step1.jpg" class="d-block w-100" alt="Step 1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>步驟 1</h5>
-                    <p>確保每天都按時登錄應用程式，開始挖掘 Pi 幣。</p>
+    <div class="container mt-4 faq-section">
+        <h2 class="text-center">常見問題</h2>
+
+        <!-- FAQ Accordion -->
+        <div id="faqAccordion">
+
+            <!-- 問題 1 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading1">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link faq-toggle" data-toggle="collapse" data-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                            Pi Network 是什麼？
+                        </button>
+                    </h5>
+                </div>
+                <div id="faqCollapse1" class="collapse show" aria-labelledby="faqHeading1" data-parent="#faqAccordion">
+                    <div class="card-body faq-answer">
+                        Pi Network 是一個新興的加密貨幣平台，致力於讓更多人參與到加密貨幣的生態系統中來。通過手機應用程式，使用者可以免費挖掘 Pi 幣。
+                    </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="images/step2.jpg" class="d-block w-100" alt="Step 2">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>步驟 2</h5>
-                    <p>完成註冊後，記得設置二次驗證以增強帳戶安全性。</p>
+
+            <!-- 問題 2 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading2">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link faq-toggle" data-toggle="collapse" data-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                            如何註冊 Pi Network？
+                        </button>
+                    </h5>
+                </div>
+                <div id="faqCollapse2" class="collapse" aria-labelledby="faqHeading2" data-parent="#faqAccordion">
+                    <div class="card-body faq-answer">
+                        要註冊 Pi Network，首先下載 Pi Network 應用程式，然後使用你的手機號碼或 Facebook 帳號註冊並登錄。接著，按照提示完成註冊過程。
+                    </div>
                 </div>
             </div>
+
+            <!-- 問題 3 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading3">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link faq-toggle" data-toggle="collapse" data-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                            如何開始挖掘 Pi 幣？
+                        </button>
+                    </h5>
+                </div>
+                <div id="faqCollapse3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faqAccordion">
+                    <div class="card-body faq-answer">
+                        開始挖掘 Pi 幣很簡單：在 Pi Network 應用中登錄後，點擊首頁的「開始挖掘」按鈕即可開始。每天開啟應用程式，點擊「開始挖掘」，就能獲得 Pi 幣。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題 4 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading4">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link faq-toggle" data-toggle="collapse" data-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                            Pi 幣有價值嗎？
+                        </button>
+                    </h5>
+                </div>
+                <div id="faqCollapse4" class="collapse" aria-labelledby="faqHeading4" data-parent="#faqAccordion">
+                    <div class="card-body faq-answer">
+                        Pi 幣目前處於測試階段，尚未在市場上上市，因此它的價值尚未確定。但未來，Pi Network 計劃將 Pi 幣推向加密貨幣市場，並有望成為一個有價值的加密貨幣。
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <a class="carousel-control-prev" href="#carouselExample" role="
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
