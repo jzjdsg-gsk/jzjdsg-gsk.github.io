@@ -3,68 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>下載 Pi App</title>
+    <title>下載 Pi network- Pi Network</title>
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=1.1">
+
     <style>
-        /* 確保圖片上下顯示 */
-        .download-btn {
-            display: block;
-            margin: 20px auto;
-        }
-        .btn-container {
+        /* 設置圖片按鈕的樣式 */
+        .download-buttons {
             text-align: center;
+            margin-top: 30px;
+        }
+
+        .download-buttons img {
+            width: 200px; /* 控制圖片大小 */
+            margin: 10px;
         }
     </style>
 </head>
 <body>
+
     <!-- 菜單 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Pi Network 指南</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="/">Pi Network 指南</a> <!-- 這裡使用絕對路徑回到首頁 -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">首頁</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="download.html">下載 Pi App</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="register.html">註冊問題</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tasks.html">註冊必做項目</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">聯絡我</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                <li class="nav-item active"><a class="nav-link" href="download.html">下載 Pi network</a></li>
+                <li class="nav-item"><a class="nav-link" href="register.html">註冊教學</a></li>
+                <li class="nav-item"><a class="nav-link" href="tasks.html">常見問題</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">聯絡我</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="container mt-5 text-center">
-        <h2>立即下載 Pi Network App</h2>
-        <p>選擇您的裝置下載 Pi Network App</p>
-        
-        <!-- 按鈕區域 -->
-        <div class="btn-container">
-            <!-- Google Play 按鈕 -->
-            <a href="https://play.google.com/store/apps/details?id=com.blockchainvault" target="_blank">
-                <img src="/icon/google_play.png" alt="Google Play" class="download-btn" style="width: 250px;">
-            </a>
+    <div class="container mt-4">
+        <h2 class="text-center">下載 Pi Network</h2>
+        <p class="text-center">選擇您的裝置下載 Pi Network App</p>
 
-            <!-- App Store 按鈕 -->
+        <!-- 下載按鈕 -->
+        <div class="download-buttons">
+            <a href="https://play.google.com/store/apps/details?id=com.blockchainvault" target="_blank">
+                <img src="image/google_play.png" alt="Google Play 下載">
+            </a>
             <a href="https://itunes.apple.com/us/app/pi-network/id1445472541" target="_blank">
-                <img src="/icon/apple_store.png" alt="App Store" class="download-btn" style="width: 250px;">
+                <img src="image/apple_store.png" alt="Apple Store 下載">
             </a>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
