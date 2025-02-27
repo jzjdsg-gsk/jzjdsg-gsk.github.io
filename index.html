@@ -43,13 +43,13 @@
                     <a class="nav-link" href="index.html">首頁</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="download.html">下載 Pi App</a>
+                    <a class="nav-link" href="download.html">下載 Pi network</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="register.html">註冊問題</a>
+                    <a class="nav-link" href="register.html">註冊教學</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tasks.html">註冊必做項目</a>
+                    <a class="nav-link" href="tasks.html">常見問題</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contact.html">聯絡我</a>
@@ -84,11 +84,11 @@
         .then(data => {
             const piPriceInUSD = data['pi-network'] ? data['pi-network'].usd : 0;
             // 顯示為 1 Pi = $價格
-            document.getElementById('pi-price').innerText = `當前 1 Pi = $${piPriceInUSD.toFixed(2)}`;
+            document.getElementById('pi-price').innerText = `1 Pi = $${piPriceInUSD.toFixed(2)}`;
         })
         .catch(error => {
             console.error('Error fetching Pi price:', error);
-            document.getElementById('pi-price').innerText = '無法獲取 Pi 幣價格';
+            document.getElementById('pi-price').innerText = '正在獲取 Pi 幣價格';
         });
     }
 
