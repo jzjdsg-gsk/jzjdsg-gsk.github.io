@@ -1,14 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pi Network 指南</title>
+    <title>歡迎來到 Pi Network 指南</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 固定顯示當前價格在頁面頂部 */
+        .price-banner {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1050;
+            border-bottom: 1px solid #ddd;
+        }
+        body {
+            padding-top: 50px; /* 頁面內容不被價格區域遮擋 */
+        }
+    </style>
 </head>
 <body>
+    <!-- 當前價格顯示區域 -->
+    <div class="price-banner" id="pi-price">
+        1 Pi = $(NTD: 0.00)
+    </div>
+
     <!-- 菜單 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Pi Network 指南</a>
@@ -36,31 +58,38 @@
         </div>
     </nav>
 
-    <!-- 顯示 Pi 幣價格 -->
-    <div class="container mt-5">
-        <h1 class="text-center">歡迎來到 Pi Network 指南</h1>
-        <p class="text-center">Pi Network 是一個新興的加密貨幣平台，這裡你將了解如何註冊、下載應用程式，以及如何有效使用 Pi Network。</p>
+    <div class="container mt-5 text-center">
+        <h1>歡迎來到 Pi Network 指南</h1>
+        <p>Pi Network 是一個新興的加密貨幣平台，在這裡你將了解如何下載並註冊 Pi Network。</p>
+        <p>當然在這裡你也能查看各種常見問題。</p>
         
-        <div class="alert alert-info text-center">
-            <h3>當前 Pi 幣價格: <span id="pi-price">--</span></h3>
+        <!-- 超連結區域 -->
+        <div class="btn-container">
+            <p><a href="download.html" class="btn btn-primary">下載 Pi App</a></p>
+            <p><a href="register.html" class="btn btn-primary">註冊問題</a></p>
+            <p><a href="faq.html" class="btn btn-primary">常見問題</a></p>
         </div>
     </div>
-
-    <script>
-        // 顯示 Pi 幣即時價格
-        fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd')
-            .then(response => response.json())
-            .then(data => {
-                const piPrice = data['pi-network'].usd;
-                document.getElementById('pi-price').textContent = `$${piPrice}`;
-            })
-            .catch(error => {
-                console.error('Error fetching Pi price:', error);
-            });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // 使用 API 來顯示即時 Pi 幣價格
+        function fetchPiPrice() {
+            // 假設有一個API可以提供 Pi 幣的即時價格
+            // 這裡用假數據，您可以換成您獲得 Pi 幣價格的 API
+            const piPriceInNTD = 23.45; // 替換為實際獲得價格的代碼
+            
+            // 更新頁面上的價格
+            document.getElementById('pi-price').innerText = `1 Pi = $(NTD: ${piPriceInNTD.toFixed(2)})`;
+        }
+
+        // 每 10 秒鐘更新一次價格
+        setInterval(fetchPiPrice, 10000);
+        // 初始化時先顯示一次
+        fetchPiPrice();
+    </script>
 </body>
 </html>
