@@ -21,23 +21,30 @@
     <link rel="stylesheet" href="css/style.css?v=1.1">
 
     <style>
-        /* 讓輪播區塊內的圖片置中 */
-        .carousel-item {
-            text-align: center;
-        }
-        .carousel-item img {
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            height: auto;
-        }
-        /* 步驟標題樣式 */
+        /* 去除步驟標題與圖片的間距 */
         .step-title {
             text-align: center;
             font-size: 20px;
             font-weight: bold;
-            margin-bottom: 10px;
-            margin-top: 20px;
+            margin: 0; /* 移除間距 */
+        }
+
+        /* 讓圖片自動適應螢幕寬度，避免超出頁面 */
+        .carousel-item img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%; /* 讓圖片不超出父容器寬度 */
+            height: auto; /* 自動調整高度 */
+        }
+
+        /* 讓輪播區域適應螢幕 */
+        .carousel-inner {
+            overflow: hidden; /* 隱藏超出範圍的部分 */
+        }
+
+        /* 如果希望圖片和標題直接貼合 */
+        .carousel-item {
+            text-align: center;
         }
     </style>
 </head>
