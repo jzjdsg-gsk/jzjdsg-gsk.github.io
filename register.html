@@ -18,37 +18,18 @@
     </script>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=1.1"> <!-- 加版本號避免緩存 -->
+    <link rel="stylesheet" href="css/style.css?v=1.1"> <!-- 避免緩存 -->
 
     <style>
-        /* 讓輪播區塊內的圖片與文字置中 */
+        /* 讓輪播區塊內的圖片置中 */
         .carousel-item {
             text-align: center;
-            position: relative;
         }
-        /* 讓圖片置中 */
         .carousel-item img {
             display: block;
             margin: 0 auto;
             max-width: 100%;
             height: auto;
-        }
-        /* 讓說明文字顯示在圖片上方 */
-        .carousel-caption {
-            position: absolute;
-            top: 5%; /* 設定距離圖片的距離 */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            text-align: center;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.6); /* 半透明黑色背景 */
-            padding: 10px;
-            border-radius: 5px;
-        }
-        /* 輪播區域的背景 */
-        .carousel-inner {
-            padding-bottom: 30px;
         }
     </style>
 </head>
@@ -79,24 +60,12 @@
         <div id="registerCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="carousel-caption">
-                        <h5>步驟 1：下載 Pi Network</h5>
-                        <p>前往 App Store 或 Google Play 下載 Pi Network 應用程式。</p>
-                    </div>
                     <img src="image/registerStep/registerStep1.png?v=1.1" alt="步驟 1">
                 </div>
                 <div class="carousel-item">
-                    <div class="carousel-caption">
-                        <h5>步驟 2：註冊帳號</h5>
-                        <p>使用 Facebook 或手機號碼註冊 Pi Network 帳號。</p>
-                    </div>
                     <img src="image/registerStep/registerStep2.png?v=1.1" alt="步驟 2">
                 </div>
                 <div class="carousel-item">
-                    <div class="carousel-caption">
-                        <h5>步驟 3：輸入邀請碼</h5>
-                        <p>輸入朋友提供的邀請碼，開始你的 Pi Network 旅程！</p>
-                    </div>
                     <img src="image/registerStep/registerStep3.png?v=1.1" alt="步驟 3">
                 </div>
             </div>
