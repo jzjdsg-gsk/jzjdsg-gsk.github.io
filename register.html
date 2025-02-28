@@ -17,11 +17,12 @@
         })();
     </script>
 
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=1.1">
 
     <style>
-        /* 固定導航欄，避免擋住內容 */
+        /* 📌 固定導航欄 */
         .navbar {
             position: fixed;
             top: 0;
@@ -29,19 +30,27 @@
             z-index: 1050;
         }
 
-        /* 確保內容不被導航欄擋住 */
+        /* 讓內容不被導航欄擋住 */
         body {
-            padding-top: 56px; /* 預設高度為 56px，根據導航欄的實際高度調整 */
+            padding-top: 56px; /* 預設高度，會被 JS 覆蓋 */
         }
 
         @media (max-width: 991px) {
-            /* 行動裝置時，增加 padding-top 讓內容不被擋住 */
+            /* 行動裝置適配 */
             body {
-                padding-top: 64px; /* 根據手機版導航欄的高度調整 */
+                padding-top: 64px;
             }
         }
 
-        /* 讓圖片自動適應螢幕寬度，避免超出頁面 */
+        /* 去除步驟標題與圖片的間距 */
+        .step-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0; /* 移除間距 */
+        }
+
+        /* 讓圖片自適應螢幕寬度 */
         .carousel-item img {
             display: block;
             margin: 0 auto;
@@ -49,12 +58,12 @@
             height: auto;
         }
 
-        /* 讓輪播區域適應螢幕 */
+        /* 避免輪播區域超出 */
         .carousel-inner {
             overflow: hidden;
         }
 
-        /* 如果希望圖片和標題直接貼合 */
+        /* 確保標題與圖片貼合 */
         .carousel-item {
             text-align: center;
         }
@@ -62,7 +71,7 @@
 </head>
 <body>
 
-    <!-- 固定導航欄 -->
+    <!-- 📌 固定導航欄 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="index.html">Pi Network 指南</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -71,7 +80,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
-                <li class="nav-item"><a class="nav-link" href="download.html">下載 Pi network</a></li>
+                <li class="nav-item"><a class="nav-link" href="download.html">下載</a></li>
                 <li class="nav-item active"><a class="nav-link" href="register.html">註冊教學</a></li>
                 <li class="nav-item"><a class="nav-link" href="faq.html">常見問題</a></li>
             </ul>
@@ -80,9 +89,9 @@
 
     <div class="container mt-4">
         <h2 class="text-center">Pi Network 註冊教學</h2>
-        <p class="text-center">該註冊教學 為 2025/02 更新</p>
+        <p class="text-center">此教學為 2025/02 更新</p>
 
-        <!-- 輪播區域 -->
+        <!-- 📌 輪播區域 -->
         <div id="registerCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -123,7 +132,19 @@
         </div>
     </div>
 
-    <!-- 輪播自動播放 -->
+    <!-- ✅ 讓導航欄完全自適應 -->
+    <script>
+        function adjustPadding() {
+            let navbarHeight = document.querySelector('.navbar').offsetHeight;
+            document.body.style.paddingTop = navbarHeight + 'px';
+        }
+
+        // 頁面載入 & 縮放時調整
+        window.addEventListener('load', adjustPadding);
+        window.addEventListener('resize', adjustPadding);
+    </script>
+
+    <!-- ✅ 輪播自動播放 -->
     <script>
         $(document).ready(function(){
             $('#registerCarousel').carousel({
