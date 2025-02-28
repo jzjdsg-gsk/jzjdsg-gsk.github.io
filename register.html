@@ -21,25 +21,37 @@
     <link rel="stylesheet" href="css/style.css?v=1.1">
 
     <style>
-        /* 去除步驟標題與圖片的間距 */
-        .step-title {
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0; /* 移除間距 */
+        /* 固定導航欄，避免擋住內容 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1050;
+        }
+
+        /* 確保內容不被導航欄擋住 */
+        body {
+            padding-top: 56px; /* 預設高度為 56px，根據導航欄的實際高度調整 */
+        }
+
+        @media (max-width: 991px) {
+            /* 行動裝置時，增加 padding-top 讓內容不被擋住 */
+            body {
+                padding-top: 64px; /* 根據手機版導航欄的高度調整 */
+            }
         }
 
         /* 讓圖片自動適應螢幕寬度，避免超出頁面 */
         .carousel-item img {
             display: block;
             margin: 0 auto;
-            max-width: 100%; /* 讓圖片不超出父容器寬度 */
-            height: auto; /* 自動調整高度 */
+            max-width: 100%;
+            height: auto;
         }
 
         /* 讓輪播區域適應螢幕 */
         .carousel-inner {
-            overflow: hidden; /* 隱藏超出範圍的部分 */
+            overflow: hidden;
         }
 
         /* 如果希望圖片和標題直接貼合 */
@@ -50,10 +62,10 @@
 </head>
 <body>
 
-    <!-- 菜單 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- 固定導航欄 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="index.html">Pi Network 指南</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
