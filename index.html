@@ -7,19 +7,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* 確保頁面在各種瀏覽器（包含 LINE）都能正常顯示 */
-        html, body {
-            height: 100dvh; /* 避免 LINE 瀏覽器底部導航欄影響 */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-
         /* 固定顯示當前價格在頁面頂部 */
         .price-banner {
             background-color: #f8f9fa;
@@ -33,33 +20,26 @@
             z-index: 1050;
             border-bottom: 1px solid #ddd;
         }
-
-        /* 讓內容不被價格欄遮擋 */
         body {
-            padding-top: 50px;
-        }
-
-        /* 超連結按鈕樣式 */
-        .btn-container p {
-            margin: 10px 0;
+            padding-top: 50px; /* 頁面內容不被價格區域遮擋 */
         }
     </style>
 </head>
 <body>
     <!-- 當前價格顯示區域 -->
     <div class="price-banner" id="pi-price">
-        正在獲取最新 Pi 幣價格...
+        正在獲取最新 Pi 幣價格
     </div>
 
     <!-- 菜單 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Pi Network 指南</a>
+        <a class="navbar-brand" href="#">Pi Network 指南</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="index.html">首頁</a>
                 </li>
                 <li class="nav-item">
@@ -78,7 +58,7 @@
     <div class="container mt-5 text-center">
         <h1>現在加入 Pi Network</h1>
         <p>Pi Network 是一個新興的加密貨幣平台</p>
-        <p>在這裡你將了解如何下載並註冊 Pi Network。</p>
+            <p>在這裡你將了解如何下載並註冊 Pi Network。</p>
         <p>當然在這裡你也能查看各種常見問題。</p>
         
         <!-- 超連結區域 -->
@@ -89,39 +69,30 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        // 自適應視窗高度，確保在 LINE 瀏覽器不會因導航欄影響高度
-        function adjustHeight() {
-            document.documentElement.style.setProperty('--real-height', window.innerHeight + 'px');
-        }
-        window.addEventListener('resize', adjustHeight);
-        window.addEventListener('load', adjustHeight);
+ <script>
+    // 使用 CoinGecko API 獲取 Pi 幣的市場價格
+    function fetchPiPrice() {
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd')
+        .then(response => response.json())
+        .then(data => {
+            const piPriceInUSD = data['pi-network'] ? data['pi-network'].usd : 0;
+            // 顯示為 1 Pi = $價格
+            document.getElementById('pi-price').innerText = `1 Pi = $${piPriceInUSD.toFixed(2)}`;
+        })
+        .catch(error => {
+            console.error('Error fetching Pi price:', error);
+            document.getElementById('pi-price').innerText = '正在獲取 Pi 幣價格';
+        });
+    }
 
-        // 獲取 Pi 幣的市場價格（美金）
-        function fetchPiPrice() {
-            fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd')
-            .then(response => response.json())
-            .then(data => {
-                if (data['pi-network'] && data['pi-network'].usd) {
-                    const piPriceInUSD = data['pi-network'].usd.toFixed(2);
-                    document.getElementById('pi-price').innerText = `1 Pi = $${piPriceInUSD}`;
-                } else {
-                    document.getElementById('pi-price').innerText = '無法獲取 Pi 幣價格';
-                }
-            })
-            .catch(error => {
-                console.error('獲取 Pi 幣價格出錯:', error);
-                document.getElementById('pi-price').innerText = '無法獲取 Pi 幣價格';
-            });
-        }
-
-        // 每 10 秒更新一次 Pi 幣價格
-        setInterval(fetchPiPrice, 10000);
-        fetchPiPrice(); // 頁面載入時立即顯示價格
-    </script>
+    // 每 10 秒鐘更新一次價格
+    setInterval(fetchPiPrice, 10000);
+    // 初始化時先顯示一次
+    fetchPiPrice();
+</script
 </body>
 </html>
